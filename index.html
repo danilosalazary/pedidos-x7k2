@@ -41,7 +41,7 @@ details summary{cursor:pointer;font-weight:600}
 <a id="wl" href="#" target="_blank" rel="noopener noreferrer" style="display:none;margin-top:10px;text-align:center;text-decoration:none;background:var(--ac);color:#fff;padding:13px;border-radius:10px;font-weight:600">💬 Abrir WhatsApp</a>
 <div class="mu" id="sent" style="margin-top:8px"></div></div>
 
-<div class="card"><div class="hh"><b>Histórico</b><span class="mu" id="hc"></span></div>
+<div class="card"><div class="hh"><b>Histórico 📊🗃️</b><span class="mu" id="hc"></span></div>
 <div class="bar" style="margin:8px 0"><button id="hp">⏪ Anterior</button><button id="hn">Siguiente ⏩</button></div>
 <div id="hv" style="white-space:pre-wrap;word-break:break-word;font-size:14px"></div></div>
 
@@ -171,7 +171,7 @@ $("nw").onclick=()=>{sentAt="";$("wl").style.display="none";$("cf").style.displa
  document.querySelectorAll("#form input[type=checkbox]").forEach(e=>{e.checked=false});
  upd();window.scrollTo(0,0)};
 $("add").onclick=()=>{d.push({q:"",f:"",h:"",c:""});buildDs()};
-function hist(){const n=S.hist.length;$("hc").textContent=n?(hi+1)+" de "+n:"vacío";$("hv").textContent=n?S.hist[hi]:"Aún no hay mensajes enviados.";$("hp").disabled=hi<=0;$("hn").disabled=hi>=n-1}
+function hist(){const n=S.hist.length;$("hc").textContent=n?(hi+1)+" de "+n:"vacío ⛔";$("hv").textContent=n?S.hist[hi]:"Aún no hay mensajes enviados.";$("hp").disabled=hi<=0;$("hn").disabled=hi>=n-1}
 $("hp").onclick=()=>{if(hi>0)hi--;hist()};$("hn").onclick=()=>{if(hi<S.hist.length-1)hi++;hist()};
 function lists(){$("ph").value=S.phone;["personal","productos","terminales","clientes","estab"].forEach(k=>$("l_"+k).value=S.lists[k].join("\n"))}
 $("sv").onclick=()=>{S.phone=$("ph").value.replace(/\D/g,"")||S.phone;["personal","productos","terminales","clientes","estab"].forEach(k=>S.lists[k]=$("l_"+k).value.split("\n").map(x=>x.trim()).filter(Boolean));sortLists();save();lists();buildForm();upd();$("sv").textContent="✅ Guardado";setTimeout(()=>$("sv").textContent="Guardar ajustes",1500)};

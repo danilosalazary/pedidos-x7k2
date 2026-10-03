@@ -29,20 +29,20 @@ details summary{cursor:pointer;font-weight:600}
 </style><script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script></head><body>
 <noscript><div style="background:#b00020;color:#fff;padding:12px;border-radius:10px;margin-bottom:10px">Este navegador tiene JavaScript desactivado o está mostrando una vista previa del archivo. Abre la app desde su dirección web (no como archivo guardado).</div></noscript>
 <div id="err" style="display:none;background:#b00020;color:#fff;padding:12px;border-radius:10px;margin-bottom:10px;font-size:14px"></div>
-<h1>🛢️ Pedidos SECSA <span class="mu" id="st"></span></h1>
+<h1>👩🏽‍💻 Pedidos SECSA 🚛<span class="mu" id="st"></span></h1>
 
 <div class="card" id="form"></div>
 
-<div class="card"><div class="hh"><b>Despachos</b><button class="x" id="add">+ Agregar</button></div><div id="ds"></div></div>
+<div class="card"><div class="hh"><b>Despachos📑</b><button class="x" id="add">➕ Agregar</button></div><div id="ds"></div></div>
 
-<div class="card"><b>Vista previa</b><div id="pv" style="margin-top:8px"></div>
-<div class="bar" style="margin-top:10px"><button id="cp">📋 Copiar</button><button class="p" id="sd">📨 Enviar por WhatsApp</button><button id="nw">➕ Nuevo</button></div>
+<div class="card"><b>Vista previa 💻🔎</b><div id="pv" style="margin-top:8px"></div>
+<div class="bar" style="margin-top:10px"><button id="cp">📋 Copiar</button><button class="p" id="sd">📨 Enviar por WhatsApp</button><button id="nw">🆕 Nuevo</button></div>
 <div id="cf" class="card" style="display:none;margin:10px 0 0;border-color:var(--ac)"><b>¿Seguro de enviar el mensaje?</b><div class="bar" style="margin-top:8px"><button class="p" id="cy">Sí, enviar</button><button id="cn">Cancelar</button></div></div>
 <a id="wl" href="#" target="_blank" rel="noopener noreferrer" style="display:none;margin-top:10px;text-align:center;text-decoration:none;background:var(--ac);color:#fff;padding:13px;border-radius:10px;font-weight:600">💬 Abrir WhatsApp</a>
 <div class="mu" id="sent" style="margin-top:8px"></div></div>
 
 <div class="card"><div class="hh"><b>Histórico</b><span class="mu" id="hc"></span></div>
-<div class="bar" style="margin:8px 0"><button id="hp">◀ Anterior</button><button id="hn">Siguiente ▶</button></div>
+<div class="bar" style="margin:8px 0"><button id="hp">⏪ Anterior</button><button id="hn">Siguiente ⏩</button></div>
 <div id="hv" style="white-space:pre-wrap;word-break:break-word;font-size:14px"></div></div>
 
 <div class="card"><b>📗 Excel</b><div class="mu" id="sy" style="margin:4px 0 8px"></div>
@@ -76,7 +76,7 @@ let tmr=null;const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch
 const $=id=>document.getElementById(id);
 let f={coord:"",cli:"",est:"",prod:"",term:"",op:"",ot:"",costo:"",nota:"",urg:false,petro:"",fact:"",prio:"",guia:"",factor:false};
 let d=[{q:"",f:"",h:"",c:""}];let sentAt="";let hi=S.hist.length-1;
-const SPEC=[["coord","Coordinador Terminal","combo","personal"],["cli","Cliente","combo","clientes"],["est","Establecimiento","dl","estab"],["prod","Producto","combo","productos"],["term","Terminal de Carga","combo","terminales"],["op","Orden Producto","txt"],["ot","Orden Transporte","txt"],["costo","Costo Transporte (USD)","num"],["nota","Nota Pedido (emite la orden)","combo","personal"],["urg","Urgente","chk"],["petro","Coordinador PETROECUADOR","combo","personal"],["fact","Facturación","combo","personal"],["prio","Prioridad Factura","sel","prio"],["guia","Guía Electrónica","combo","personal"],["factor","Factor de corrección","chk"]];
+const SPEC=[["coord","Coordinador Terminal","combo","personal"],["cli","Cliente","combo","clientes"],["est","Establecimiento","dl","estab"],["prod","Producto","combo","productos"],["term","Terminal de Carga","combo","terminales"],["op","Orden Producto","txt"],["ot","Orden Transporte","txt"],["costo","Costo Transporte (USD)","num"],["nota","Nota Pedido (emite la orden)","combo","personal"],["urg","Urgente ⚠️","chk"],["petro","Coordinador PETROECUADOR","combo","personal"],["fact","Facturación","combo","personal"],["prio","Prioridad Factura","sel","prio"],["guia","Guía Electrónica","combo","personal"],["factor","Factor de corrección 🌡️","chk"]];
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
 function opts(k){const a=k==="prio"?Object.keys(PRIO):S.lists[k];return '<option value=""></option>'+a.map(x=>`<option>${esc(x)}</option>`).join("")}
 const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim().toLowerCase();

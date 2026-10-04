@@ -18,7 +18,8 @@ input,select,textarea{width:100%;font:inherit;padding:9px;border:1px solid var(-
 .row3>button,.row3>span{grid-column:1/-1}.row3>span{display:none}
 input,select,textarea{min-width:0;max-width:100%}
 .chk{display:flex;gap:8px;align-items:center;margin-top:10px}.chk input{width:22px;height:22px}
-#f_urg{-webkit-appearance:none;appearance:none;flex:none;padding:0;border:2px solid var(--rd);border-radius:6px;background:var(--bg);position:relative}
+#form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 10px}#form>div{min-width:0}
+ #f_urg{-webkit-appearance:none;appearance:none;flex:none;padding:0;border:2px solid var(--rd);border-radius:6px;background:var(--bg);position:relative}
 #f_urg:checked{background:var(--rd)}
 #f_urg:checked::after{content:"✓";color:#fff;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700}
 #f_urg:checked+label{color:var(--rd)!important;font-weight:700}
@@ -64,7 +65,7 @@ details summary{cursor:pointer;font-weight:600}
 <button class="p" id="sv" style="margin-top:10px;width:100%">Guardar ajustes</button></details></div>
 
 <script>
-(function(){try{const c=document.createElement("canvas");c.width=c.height=180;const x=c.getContext("2d");x.fillStyle="#128c7e";x.fillRect(0,0,0,255);x.font="110px 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif";x.textAlign="center";x.textBaseline="middle";x.fillText("📄",90,90);const l=document.createElement("link");l.rel="apple-touch-icon";l.href=c.toDataURL("image/png");document.head.appendChild(l)}catch(e){}})();
+(function(){try{const c=document.createElement("canvas");c.width=c.height=180;const x=c.getContext("2d");x.fillStyle="#128c7e";x.fillRect(0,0,51,204);x.font="110px 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif";x.textAlign="center";x.textBaseline="middle";x.fillText("📄",90,90);const l=document.createElement("link");l.rel="apple-touch-icon";l.href=c.toDataURL("image/png");document.head.appendChild(l)}catch(e){}})();
 window.onerror=function(m,u,l,c){var e=document.getElementById("err");if(e){e.style.display="block";e.textContent="Error en la app: "+m+" (línea "+l+")"}};
 const L0={personal:["Santiago Agila","Nathalia Valarezo","Natalia Perez","Diana Cabezas","Diego Freire","Danilo Salazar","Josue Alvarado","Lenin Rosero","Oscar Jimbo","Jessica Acosta"],
 productos:["AVGAS NACIONAL","AVGAS PARTICULAR","DIESEL 2 PESQUERO","DIESEL 2 ATUNERO","DIESEL 2 CAMARONERO","DIESEL 2 INDUSTRIAL","DIESEL 2 PETROLERO","DIESEL PREMIUM PETROLERO","DIESEL PREMIUM ATUNERO","DIESEL PREMIUM CAMARONERO","DIESEL PREMIUM INDUSTRIAL","DIESEL PREMIUM PESQUERO","EXTRA CON ETANOL INDUSTRIAL","EXTRA INDUSTRIAL","FUEL OIL 6 ELECTRICO","FUEL OIL LIVIANO","GAS LICUADO DE PETROLEO INDUSTRIAL","JET FUEL A1","RESIDUO INDUSTRIAL","RUBBER SOLVENT","SUPER PREMIUM 95 INDUSTRIAL"],
@@ -79,9 +80,9 @@ function sortLists(){Object.keys(S.lists).forEach(k=>S.lists[k].sort((a,b)=>a.lo
 sortLists();
 let tmr=null;const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}clearTimeout(tmr);tmr=setTimeout(pushRemote,900)};
 const $=id=>document.getElementById(id);
-let f={coord:"",cli:"",est:"",prod:"",term:"",op:"",ot:"",costo:"",nota:"",urg:false,petro:"",fact:"",prio:"",guia:"",factor:false};
+let f={coord:"",cli:"",est:"",prod:"",term:"",op:"",ot:"",nota:"",urg:false,petro:"",fact:"",prio:"",guia:"",factor:false};
 let d=[{q:"",f:"",h:"",c:""}];let sentAt="";let hi=S.hist.length-1;
-const SPEC=[["coord","Coordinador Terminal 👩🏽‍💻","combo","personal"],["cli","Cliente 🏢","combo","clientes"],["est","Establecimiento 📌","dl","estab"],["prod","Producto ⛽","combo","productos"],["term","Terminal de Carga 🏭","combo","terminales"],["op","Orden Producto 🛢️","txt"],["ot","Orden Transporte 🚛","txt"],["costo","Costo Transporte 💵","num"],["nota","Emite Nota Pedido 👩🏽‍💻","combo","personal"],["urg","Urgente ‼️","chk"],["petro","Coordinador PETROECUADOR 👨🏽‍💼","combo","personal"],["fact","Facturación 🧾","combo","personal"],["prio","Prioridad Factura ⚠️","sel","prio"],["guia","Guía Electrónica 📋","combo","personal"],["factor","Factor de corrección 🌡️","chk"]];
+const SPEC=[["coord","Coordinador Terminal 👩🏽‍💻","combo","personal"],["cli","Cliente 🏢","combo","clientes"],["est","Establecimiento 📌","dl","estab"],["prod","Producto ⛽","combo","productos"],["term","Terminal de Carga 🏭","combo","terminales"],["op","Orden Producto 🛢️","txt"],["ot","Orden Transporte 🚛","txt"],["nota","Emite Nota Pedido 👩🏽‍💻","combo","personal"],["urg","Urgente ‼️","chk"],["factor","Factor de corrección 🌡️","chk"],["petro","Coordinador PETROECUADOR 👨🏽‍💼","combo","personal"],["fact","Facturación 🧾","combo","personal"],["prio","Prioridad Factura ⚠️","sel","prio"],["guia","Guía Electrónica 📋","combo","personal"]];
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
 function opts(k){const a=k==="prio"?Object.keys(PRIO):S.lists[k];return '<option value=""></option>'+a.map(x=>`<option>${esc(x)}</option>`).join("")}
 const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim().toLowerCase();
@@ -89,20 +90,20 @@ const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").repl
 function buildForm(){
  $("form").innerHTML=SPEC.map(([k,l,t,o])=>{
   if(t==="chk")return `<div class="chk"><input type="checkbox" data-k="${k}" id="f_${k}"><label for="f_${k}" style="margin:0;font-size:15px;color:var(--tx)">${l}</label></div>`;
-  if(t==="sel")return `<label>${l}</label><select data-k="${k}">${opts(o)}</select>`;
+  if(t==="sel")return `<div><label>${l}</label><select data-k="${k}">${opts(o)}</select></div>`;
   if(t==="combo"){const cur=f[k],inList=!cur||S.lists[o].some(x=>norm(x)===norm(cur));
-   return `<label>${l}</label><select data-k="${k}" data-combo="1"><option value=""></option><option value="__new__"${inList?"":" selected"}>✏️ Escribir otro…</option>${S.lists[o].map(x=>`<option${inList&&cur&&norm(x)===norm(cur)?" selected":""}>${esc(x)}</option>`).join("")}</select><input data-new="${k}" autocomplete="off" placeholder="Escribe el nombre nuevo" value="${inList?"":esc(cur)}" style="margin-top:6px;${inList?"display:none":""}">`}
-  if(t==="dl")return `<label>${l}</label><input data-k="${k}" list="dl_${k}" autocomplete="off"><datalist id="dl_${k}">${S.lists[o].map(x=>`<option value="${esc(x)}">`).join("")}</datalist>`;
-  return `<label>${l}</label><input data-k="${k}" ${t==="num"?'inputmode="decimal" autocomplete="off" placeholder="$ 0,00"':''}>`}).join("");
-  $("form").querySelectorAll("[data-k]").forEach(e=>{
+   return `<div><label>${l}</label><select data-k="${k}" data-combo="1"><option value=""></option><option value="__new__"${inList?"":" selected"}>✏️ Escribir otro…</option>${S.lists[o].map(x=>`<option${inList&&cur&&norm(x)===norm(cur)?" selected":""}>${esc(x)}</option>`).join("")}</select><input data-new="${k}" autocomplete="off" placeholder="Escribe el nombre nuevo" value="${inList?"":esc(cur)}" style="margin-top:6px;${inList?"display:none":""}"></div>`}
+  if(t==="dl")return `<div><label>${l}</label><input data-k="${k}" list="dl_${k}" autocomplete="off"><datalist id="dl_${k}">${S.lists[o].map(x=>`<option value="${esc(x)}">`).join("")}</datalist></div>`;
+  return `<div><label>${l}</label><input data-k="${k}"></div>`}).join("");
+ $("form").querySelectorAll("[data-k]").forEach(e=>{
   const k=e.dataset.k;
   if(e.dataset.combo){
    const ni=$("form").querySelector('[data-new="'+k+'"]');
    e.onchange=()=>{if(e.value==="__new__"){ni.style.display="";f[k]=ni.value;ni.focus()}else{ni.style.display="none";f[k]=e.value}upd()};
    ni.oninput=()=>{f[k]=ni.value;upd()};
    return}
-  if(e.type==="checkbox")e.checked=f[k];else e.value=k==="costo"?cshow(f[k]):f[k];
-  e.oninput=e.onchange=ev=>{f[k]=e.type==="checkbox"?e.checked:k==="costo"?maskC(e,ev):e.value;upd()}})}
+  if(e.type==="checkbox")e.checked=f[k];else e.value=f[k];
+  e.oninput=e.onchange=()=>{f[k]=e.type==="checkbox"?e.checked:e.value;upd()}})}
  
  function buildDs(){
  $("ds").innerHTML=d.map((r,i)=>`<div class="row3" data-i="${i}"><div><label>Cantidad 🔢</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div><div><label>Fecha 📅</label><input data-f="f" type="date" value="${r.f}"></div><div><label>Hora ⏲️</label><input data-f="h" type="time" value="${r.h}"></div><div><label>Costo 🚛</label><input data-f="c" inputmode="decimal" autocomplete="off" placeholder="$ 0,00" value="${cshow(r.c)}"></div>${d.length>1?`<button class="x" data-del="${i}">✕</button>`:"<span></span>"}</div>`).join("");
@@ -149,9 +150,10 @@ function msg(){
  m+="\n📜 @"+f.nota+" por favor su ayuda con la emisión de la orden"+(f.urg?" de manera *PRIORITARIA*":"")+(f.factor?" una vez que @"+f.coord+" nos ayude con el factor de corrección 🌡️":"");
  if(f.petro)m+="\n👩🏽\u200d💻 @"+f.petro+" por favor su ayuda con la programación del despacho con PETROECUADOR";
  if(f.fact&&f.prio)m+="\n🧾 @"+f.fact+" "+PRIO[f.prio]+" 📋 @"+f.coord;
- if(f.costo)m+="\n🚛 @"+f.fact+" el costo del transporte es _USD_ *$ "+money(f.costo)+"*";
- else if(f.fact&&d.some(r=>r.c))m+="\n🚛 @"+f.fact+" considerar el costo del transporte por cada orden";
- if(f.guia)m+="\n📃 @"+f.guia+" favor su ayuda con la guía electrónica inmediatamente cuando nos envíe los documentos el gestor 📋 @"+f.coord;
+  
+ if(f.fact&&d.some(r=>r.c))m+="\n🚛 @"+f.fact+" considerar el costo del transporte por cada orden";
+ 
+if(f.guia)m+="\n📃 @"+f.guia+" favor su ayuda con la guía electrónica inmediatamente cuando nos envíe los documentos el gestor 📋 @"+f.coord;
  return m+"\n\n👩🏽\u200d💼 _Quedo pendiente para confirmar al cliente la entrega_ 🫱🏼\u200d🫲🏼"}
 const clean=s=>s.replace(/\*/g,"").replace(/_/g,"").replace(/@/g,"");
 const ready=()=>f.coord&&f.cli&&f.prod&&f.term&&f.nota&&d.some(r=>r.q);
@@ -175,7 +177,7 @@ $("cy").onclick=()=>{
  touched.forEach(lk=>S.lists[lk].sort((a,b)=>a.localeCompare(b,"es")));
  const m=msg();sentAt=stamp();
  S.hist.push("📨 Mensaje enviado via Whatsapp el...: "+sentAt+"\n\n"+clean(m));hi=S.hist.length-1;
- S.log.push({fecha:sentAt,coordinador:f.coord,cliente:f.cli,establecimiento:f.est,producto:f.prod,terminal:f.term,orden_producto:f.op,orden_transporte:f.ot,costo_transporte:f.costo,nota_pedido:f.nota,urgente:f.urg?"SI":"NO",petroecuador:f.petro,facturacion:f.fact,prioridad_factura:f.prio,guia_electronica:f.guia,factor:f.factor?"SI":"NO",despachos:d.filter(r=>r.q).map(r=>[num(r.q)+" gal",r.f,r.h,r.c].filter(Boolean).join(" | ")).join(" ; ")});save();
+ S.log.push({fecha:sentAt,coordinador:f.coord,cliente:f.cli,establecimiento:f.est,producto:f.prod,terminal:f.term,orden_producto:f.op,orden_transporte:f.ot,nota_pedido:f.nota,urgente:f.urg?"SI":"NO",petroecuador:f.petro,facturacion:f.fact,prioridad_factura:f.prio,guia_electronica:f.guia,factor:f.factor?"SI":"NO",despachos:d.filter(r=>r.q).map(r=>[num(r.q)+" gal",r.f,r.h,r.c].filter(Boolean).join(" | ")).join(" ; ")});save();
  const url="https://api.whatsapp.com/send?phone="+S.phone.replace(/\D/g,"")+"&text="+encodeURIComponent(m)+"&app_absent=1&send=1";
  const a=$("wl");a.href=url;a.style.display="block";
  copyTxt(m);
@@ -184,7 +186,7 @@ $("cy").onclick=()=>{
  if(added.length)$("sent").textContent+=" Se agregaron a Ajustes: "+added.join(", ")+".";};
 $("cp").onclick=async()=>{const t=msg();try{await navigator.clipboard.writeText(t);$("cp").textContent="✅ Copiado"}catch(e){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(_){}a.remove();$("cp").textContent="✅ Copiado"}setTimeout(()=>$("cp").textContent="📋 Copiar",1500)};
 $("nw").onclick=()=>{sentAt="";$("wl").style.display="none";$("cf").style.display="none";
- f={coord:"",cli:"",est:"",prod:"",term:"",op:"",ot:"",costo:"",nota:"",urg:false,petro:"",fact:"",prio:"",guia:"",factor:false};
+ f={coord:"",cli:"",est:"",prod:"",term:"",op:"",ot:"",nota:"",urg:false,petro:"",fact:"",prio:"",guia:"",factor:false};
  d=[{q:"",f:"",h:"",c:""}];buildForm();buildDs();
  document.querySelectorAll("#form input:not([type=checkbox]),#ds input").forEach(e=>{e.value=""});
  document.querySelectorAll("#form select").forEach(e=>{e.selectedIndex=0});

@@ -84,6 +84,7 @@ const SPEC=[["coord","Coordinador Terminal 👩🏽‍💻","combo","personal"],
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
 function opts(k){const a=k==="prio"?Object.keys(PRIO):S.lists[k];return '<option value=""></option>'+a.map(x=>`<option>${esc(x)}</option>`).join("")}
 const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim().toLowerCase();
+
 function buildForm(){
  $("form").innerHTML=SPEC.map(([k,l,t,o])=>{
   if(t==="chk")return `<div class="chk"><input type="checkbox" data-k="${k}" id="f_${k}"><label for="f_${k}" style="margin:0;font-size:15px;color:var(--tx)">${l}</label></div>`;
@@ -91,8 +92,8 @@ function buildForm(){
   if(t==="combo"){const cur=f[k],inList=!cur||S.lists[o].some(x=>norm(x)===norm(cur));
    return `<label>${l}</label><select data-k="${k}" data-combo="1"><option value=""></option><option value="__new__"${inList?"":" selected"}>✏️ Escribir otro…</option>${S.lists[o].map(x=>`<option${inList&&cur&&norm(x)===norm(cur)?" selected":""}>${esc(x)}</option>`).join("")}</select><input data-new="${k}" autocomplete="off" placeholder="Escribe el nombre nuevo" value="${inList?"":esc(cur)}" style="margin-top:6px;${inList?"display:none":""}">`}
   if(t==="dl")return `<label>${l}</label><input data-k="${k}" list="dl_${k}" autocomplete="off"><datalist id="dl_${k}">${S.lists[o].map(x=>`<option value="${esc(x)}">`).join("")}</datalist>`;
-  return `<label>${l}</label><input data-k="${k}" ${t==="num"?'inputmode="decimal"':''}>`}).join("");
- $("form").querySelectorAll("[data-k]").forEach(e=>{
+  return `<label>${l}</label><input data-k="${k}" ${t==="num"?'inputmode="decimal" autocomplete="off" placeholder="$ 0,00"':''}>`}).join("");
+  $("form").querySelectorAll("[data-k]").forEach(e=>{
   const k=e.dataset.k;
   if(e.dataset.combo){
    const ni=$("form").querySelector('[data-new="'+k+'"]');

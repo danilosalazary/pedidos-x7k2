@@ -4,6 +4,7 @@
 <title>Pedidos SECSA 👩🏽‍💻</title>
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Pedidos"><meta name="theme-color" content="#128c7e">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%9B%A2%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 180 180%27%3E%3Crect fill=%27%23128c7e%27 width=%27180%27 height=%27180%27/%3E%3Ctext y=%27135%27 font-size=%27110%27 x=%2745%27%3E%F0%9F%9B%A2%EF%B8%8F%3C/text%3E%3C/svg%3E">
 <style>
 :root{--bg:#f4f5f7;--card:#fff;--tx:#1b1f24;--mu:#6b7280;--bd:#d5d9df;--ac:#128c7e;--rd:#d00000;--bl:#1f4fd8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111418;--card:#1b2026;--tx:#e8eaed;--mu:#9aa3ad;--bd:#343b44}}
@@ -31,7 +32,7 @@ button.p{background:var(--ac);color:#fff;font-weight:600}button:disabled{opacity
 .hh{display:flex;gap:8px;align-items:center;justify-content:space-between}
 details summary{cursor:pointer;font-weight:600}
 </style><script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script></head><body>
-<noscript><div style="background:#b00020;color:#fff;padding:12px;border-radius:10px;margin-bottom:10px">Este navegador tiene JavaScript desactivado o está mostrando una vista previa del archivo. Abre la app desde su dirección web (no como archivo guardado).</div></noscript>
+<noscript><div style="background:#b00020;color:#fff;padding:12px;border-radius:10px;margin-bottom:10px">Este navegador tiene JavaScript desactivado o está mostrando una vista previa del archivo. Abre el archivo directamente en el navegador.</div></noscript>
 <div id="err" style="display:none;background:#b00020;color:#fff;padding:12px;border-radius:10px;margin-bottom:10px;font-size:14px"></div>
 <h1>Pedidos SECSA 🗓️<span class="mu" id="st"></span></h1>
 
@@ -42,7 +43,7 @@ details summary{cursor:pointer;font-weight:600}
 <div class="card"><b>Vista previa 💻🔎</b><div id="pv" style="margin-top:8px"></div>
 <div class="bar" style="margin-top:10px"><button id="cp">📋 Copiar</button><button class="p" id="sd">📨 Enviar por WhatsApp</button><button id="nw">🆕 Nuevo</button></div>
 <div id="cf" class="card" style="display:none;margin:10px 0 0;border-color:var(--ac)"><b>¿Seguro de enviar el mensaje?</b><div class="bar" style="margin-top:8px"><button class="p" id="cy">Sí, enviar</button><button id="cn">Cancelar</button></div></div>
-<a id="wl" href="#" target="_blank" rel="noopener noreferrer" style="display:none;margin-top:10px;text-align:center;text-decoration:none;background:var(--ac);color:#fff;padding:13px;border-radius:10px;font-weight:600">💬 Abrir WhatsApp</a>
+<a id="wl" href="#" target="_blank" rel="noopener noreferrer" style="display:none;margin-top:10px;text-align:center;text-decoration:none;background:var(--ac);color:#fff;padding:13px;border-radius:10px;font-weight:600">📱 Abrir WhatsApp</a>
 <div class="mu" id="sent" style="margin-top:8px"></div></div>
 
 <div class="card"><div class="hh"><b>Histórico 📊🗃️</b><span class="mu" id="hc"></span></div>
@@ -64,14 +65,13 @@ details summary{cursor:pointer;font-weight:600}
 <button class="p" id="sv" style="margin-top:10px;width:100%">Guardar ajustes</button></details></div>
 
 <script>
-(function(){try{const c=document.createElement("canvas");c.width=c.height=180;const x=c.getContext("2d");x.fillStyle="#128c7e";x.fillRect(0,0,180,180);x.font="110px 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif";x.textAlign="center";x.textBaseline="middle";x.fillText("👩🏽‍💻",90,90);const l=document.createElement("link");l.rel="apple-touch-icon";l.href=c.toDataURL("image/png");document.head.appendChild(l)}catch(e){}})();
 window.onerror=function(m,u,l,c){var e=document.getElementById("err");if(e){e.style.display="block";e.textContent="Error en la app: "+m+" (línea "+l+")"}};
 const L0={personal:["Santiago Agila","Nathalia Valarezo","Natalia Perez","Diana Cabezas","Diego Freire","Danilo Salazar","Josue Alvarado","Lenin Rosero","Oscar Jimbo","Jessica Acosta"],
-productos:["AVGAS NACIONAL","AVGAS PARTICULAR","DIESEL 2 PESQUERO","DIESEL 2 ATUNERO","DIESEL 2 CAMARONERO","DIESEL 2 INDUSTRIAL","DIESEL 2 PETROLERO","DIESEL PREMIUM PETROLERO","DIESEL PREMIUM ATUNERO","DIESEL PREMIUM CAMARONERO","DIESEL PREMIUM INDUSTRIAL","DIESEL PREMIUM PESQUERO","EXTRA CON ETANOL INDUSTRIAL","EXTRA INDUSTRIAL","FUEL OIL 6 ELECTRICO","FUEL OIL LIVIANO","GAS LICUADO DE PETROLEO INDUSTRIAL","JET FUEL A1","RESIDUO INDUSTRIAL","RUBBER SOLVENT","SUPER PREMIUM 95 INDUSTRIAL"],
-terminales:["Ambato","Balao","Baltra","Barbasquillo","Beaterio","Challuabamba","Esmeraldas","La Toma","La Troncal","Libertad","Monteverde","Oyambaro","Pascuales","Riobamba","Salitral","Santo Domingo","Shushufindi","Tres Bocas","Vopak"],
+productos:["AVGAS NACIONAL","AVGAS PARTICULAR","DIESEL 2 PESQUERO","DIESEL 2 ATUNERO","DIESEL 2 CAMARONERO","DIESEL 2 INDUSTRIAL","DIESEL 2 PETROLERO","DIESEL PREMIUM PETROLERO","DIESEL PREMIUM ATUNERO"],
+terminales:["Ambato","Balao","Baltra","Barbasquillo","Beaterio","Challuabamba","Esmeraldas","La Toma","La Troncal","Libertad","Monteverde","Oyambaro","Pascuales","Riobamba","Salitral","Santo Domingo","Sipía","Tena","Transval","Turbo","Vacamonte"],
 clientes:["ACUISHRIMP","AEROFAQ","AIFA","CORPFISHTUNA S.A.","ECUACORRIENTE S.A.","FUNDAMETZ","METABAZ","PECKSAMBIENTE","PESQUERA POLAR SALANGO S.A.","TECOPESCA"],
 estab:["PISTA ESTRELLA","PISTA MONTAÑITA","PISTA PAYO"]};
-const PRIO={Alta:"favor su ayuda con la factura inmediatamente cuando nos envíe los documentos el gestor",Media:"favor su ayuda con la factura en el transcurso del día cuando nos envíe los documentos el gestor",Baja:"favor su ayuda con la factura hasta el siguiente día cuando nos envíe los documentos el gestor"};
+const PRIO={Alta:"favor su ayuda con la factura inmediatamente cuando nos envíe los documentos el gestor",Media:"favor su ayuda con la factura en el transcurso del día cuando nos envíe los documentos el gestor",Baja:"favor su ayuda con la factura en el transcurso de la semana cuando nos envíe los documentos el gestor"};
 const K="secsa_v1";let S;
 try{S=JSON.parse(localStorage.getItem(K)||"null")}catch(e){S=null}
 S=S||{};S.lists=Object.assign({},L0,S.lists||{});S.hist=S.hist||[];S.log=S.log||[];if(!S.phone||S.phone==="593983345527")S.phone="593989956236";
@@ -81,7 +81,7 @@ let tmr=null;const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch
 const $=id=>document.getElementById(id);
 let f={coord:"",cli:"",est:"",prod:"",term:"",op:"",ot:"",costo:"",nota:"",urg:false,petro:"",fact:"",prio:"",guia:"",factor:false};
 let d=[{q:"",f:"",h:"",c:""}];let sentAt="";let hi=S.hist.length-1;
-const SPEC=[["coord","Coordinador Terminal 👩🏽‍💻","combo","personal"],["cli","Cliente 🏢","combo","clientes"],["est","Establecimiento 📌","dl","estab"],["prod","Producto ⛽","combo","productos"],["term","Terminal de Carga 🏭","combo","terminales"],["op","Orden Producto 🛢️","txt"],["ot","Orden Transporte 🚛","txt"],["costo","Costo Transporte 💵","num"],["nota","Emite Nota Pedido 👩🏽‍💻","combo","personal"],["urg","Urgente ‼️","chk"],["petro","Coordinador PETROECUADOR 👨🏽‍💼","combo","personal"],["fact","Facturación 🧾","combo","personal"],["prio","Prioridad Factura ⚠️","sel","prio"],["guia","Guía Electrónica 📋","combo","personal"],["factor","Factor de corrección 🌡️","chk"]];
+const SPEC=[["coord","Coordinador Terminal 👩🏽‍💻","combo","personal"],["cli","Cliente 🏢","combo","clientes"],["est","Establecimiento 📌","dl","estab"],["prod","Producto ⛽","combo","productos"],["term","Terminal de Carga 🏗️","combo","terminales"],["op","Orden Producto 📋","text"],["ot","Orden Transporte 🚚","text"],["costo","Costo Transporte 💵","num"],["nota","Gestor Ordenes 👩🏽‍💼","combo","personal"],["urg","¡URGENTE!","chk"],["petro","Petroecuador 👩🏽‍💻","combo","personal"],["fact","Facturador 👩🏽‍💼","combo","personal"],["prio","Prioridad Factura","sel","prio"],["guia","Guía Electrónica 📃","combo","personal"],["factor","Ajuste Temperatura 🌡️","chk"]];
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
 function opts(k){const a=k==="prio"?Object.keys(PRIO):S.lists[k];return '<option value=""></option>'+a.map(x=>`<option>${esc(x)}</option>`).join("")}
 const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim().toLowerCase();
@@ -91,7 +91,8 @@ function buildForm(){
   if(t==="chk")return `<div class="chk"><input type="checkbox" data-k="${k}" id="f_${k}"><label for="f_${k}" style="margin:0;font-size:15px;color:var(--tx)">${l}</label></div>`;
   if(t==="sel")return `<label>${l}</label><select data-k="${k}">${opts(o)}</select>`;
   if(t==="combo"){const cur=f[k],inList=!cur||S.lists[o].some(x=>norm(x)===norm(cur));
-   return `<label>${l}</label><select data-k="${k}" data-combo="1"><option value=""></option><option value="__new__"${inList?"":" selected"}>✏️ Escribir otro…</option>${S.lists[o].map(x=>`<option${inList&&cur&&norm(x)===norm(cur)?" selected":""}>${esc(x)}</option>`).join("")}</select><input data-new="${k}" autocomplete="off" placeholder="Escribe el nombre nuevo" value="${inList?"":esc(cur)}" style="margin-top:6px;${inList?"display:none":""}">`}
+   return `<label>${l}</label><select data-k="${k}" data-combo="1"><option value=""></option><option value="__new__"${inList?"":" selected"}>✏️ Escribir otro…</option>${S.lists[o].map(x=>`<option>${esc(x)}</option>`).join("")}</select><input type="text" data-new="${k}" style="display:none;margin-top:8px">`;
+  }
   if(t==="dl")return `<label>${l}</label><input data-k="${k}" list="dl_${k}" autocomplete="off"><datalist id="dl_${k}">${S.lists[o].map(x=>`<option value="${esc(x)}">`).join("")}</datalist>`;
   return `<label>${l}</label><input data-k="${k}" ${t==="num"?'inputmode="decimal" autocomplete="off" placeholder="$ 0,00"':''}>`}).join("");
   $("form").querySelectorAll("[data-k]").forEach(e=>{
@@ -105,14 +106,14 @@ function buildForm(){
   e.oninput=e.onchange=ev=>{f[k]=e.type==="checkbox"?e.checked:k==="costo"?maskC(e,ev):e.value;upd()}})}
  
  function buildDs(){
- $("ds").innerHTML=d.map((r,i)=>`<div class="row3" data-i="${i}"><div><label>Cantidad 🔢</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div><div><label>Fecha 📅</label><input data-f="f" type="date" value="${r.f}"></div><div><label>Hora ⏲️</label><input data-f="h" type="time" value="${r.h}"></div><div><label>Costo 🚛</label><input data-f="c" inputmode="decimal" autocomplete="off" placeholder="$ 0,00" value="${cshow(r.c)}"></div>${d.length>1?`<button class="x" data-del="${i}">✕</button>`:"<span></span>"}</div>`).join("");
+ $("ds").innerHTML=d.map((r,i)=>`<div class="row3" data-i="${i}"><div><label>Cantidad 🔢</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div><div><label>Fecha 📅</label><input data-f="f" type="date" value="${r.f||''}"></div><div><label>Hora Entrega ⏲️</label><input data-f="h" type="time" value="${r.h||''}"></div><div><label>Transporte 🚛</label><input data-f="c" inputmode="decimal" placeholder="$ 0,00" value="${r.c?cshow(r.c):''}"></div><button data-del="${i}" style="background:var(--rd);color:#fff">🗑️ Eliminar</button></div></div>`).join("");
  $("ds").querySelectorAll("input").forEach(e=>e.oninput=ev=>{const r=d[+e.closest("[data-i]").dataset.i],k=e.dataset.f;r[k]=k==="q"?maskQ(e):k==="c"?maskC(e,ev):e.value;upd()});
  $("ds").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{d.splice(+b.dataset.del,1);buildDs();upd()})}
 const grp=s=>s.replace(/\B(?=(\d{3})+(?!\d))/g,".");
 const num=q=>{const s=String(q).trim();return /^\d+$/.test(s)?grp(s):s};
 
 const cshow=v=>{if(v===""||v==null)return"";const q=String(v).split(".");return"$ "+grp(q[0])+(q.length>1?","+q[1]:"")};
-function maskQ(el){const nd=el.value.slice(0,el.selectionStart).replace(/\D/g,"").length,d=el.value.replace(/\D/g,"").replace(/^0+/,"");el.value=d?grp(d):"";let c=0,i=0;for(;i<el.value.length&&c<nd;i++)if(/\d/.test(el.value[i]))c++;try{el.setSelectionRange(i,i)}catch(x){}return d}
+function maskQ(el){const nd=el.value.slice(0,el.selectionStart).replace(/\D/g,"").length,d=el.value.replace(/\D/g,"").replace(/^0+/,"");el.value=d?grp(d):"";let c=0,i=0;for(;i<el.value.length&&c<nd;i++)if(/\d/.test(el.value[i]))c++;try{el.setSelectionRange(i,i)}catch(x){}}
 function maskC(el,ev){let v=el.value,cp=el.selectionStart;
 if(ev&&ev.data&&/^[.,]$/.test(ev.data)){const i=cp-1,rest=v.slice(0,i)+v.slice(i+1);if(/,|\|/.test(rest)){v=rest;cp--}else v=v.slice(0,i)+"|"+v.slice(i+1)}
 else if(ev&&ev.inputType==="insertFromPaste"&&!/,/.test(v)&&/^[^.]*\.\d{1,2}$/.test(v.replace(/[$\s]/g,"")))v=v.replace(".","|");
@@ -126,7 +127,7 @@ return ent?ent+(dec?"."+dec:""):""}
 
  const money=v=>{const n=parseFloat(String(v).replace(",","."));if(isNaN(n))return v;const [i,x]=n.toFixed(2).split(".");return grp(i)+","+x};
 const DIA=["domingo","lunes","martes","miércoles","jueves","viernes","sábado"],MES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
-function fecha(s){const [y,m,dd]=s.split("-").map(Number),t=new Date(y,m-1,dd),n=new Date();const hoy=t.toDateString()===n.toDateString();return (hoy?"HOY, ":"")+DIA[t.getDay()]+" "+dd+" de "+MES[m-1]+" de "+y}
+function fecha(s){const [y,m,dd]=s.split("-").map(Number),t=new Date(y,m-1,dd),n=new Date();const hoy=t.toDateString()===n.toDateString();return (hoy?"HOY, ":"")+DIA[t.getDay()]+" "+dd+" de "+MES[m-1]}
 const CF=["🕛","🕐","🕑","🕒","🕓","🕔","🕕","🕖","🕗","🕘","🕙","🕚"],CH=["🕧","🕜","🕝","🕞","🕟","🕠","🕡","🕢","🕣","🕤","🕥","🕦"];
 function clock(h){const [a,b]=h.split(":").map(Number);const i=Math.floor((a*60+b)/30)%24;return (i%2?CH:CF)[Math.floor(i/2)%12]}
 const greet=()=>{const h=new Date().getHours();return h<=11?"🌅 Buenos días":h<=18?"🌇 Buenas tardes":"🌆 Buenas noches"};
@@ -158,11 +159,11 @@ const ready=()=>f.coord&&f.cli&&f.prod&&f.term&&f.nota&&d.some(r=>r.q);
 function upd(){
  $("pv").textContent=clean(msg());$("pv").className=f.urg?"u":"";
  $("sd").disabled=!!sentAt||!ready();
- $("sent").textContent=sentAt?"✅ Registrado el "+sentAt+". Si WhatsApp no se abrió, toca «Abrir WhatsApp» (el mensaje también quedó copiado para pegarlo). Luego pulsa «Nuevo».":(ready()?"":"Completa coordinador, cliente, producto, terminal, nota de pedido y una cantidad.")}
+ $("sent").textContent=sentAt?"✅ Registrado el "+sentAt+". Si WhatsApp no se abrió, toca «Abrir WhatsApp» (el mensaje también quedó copiado para pegarlo). Luego pulsa «Nuevo».":(ready()?"Completa para enviar ✅":"Falta completar algunos campos")}
 function stamp(){const n=new Date(),p=x=>String(x).padStart(2,"0");return p(n.getDate())+"."+MES[n.getMonth()].slice(0,3)+"."+n.getFullYear()+" - "+p(n.getHours())+":"+p(n.getMinutes())+":"+p(n.getSeconds())}
 $("sd").onclick=()=>{$("cf").style.display="block"};
 $("cn").onclick=()=>{$("cf").style.display="none"};
-function copyTxt(t){try{const r=navigator.clipboard.writeText(t);if(r&&r.catch)r.catch(()=>{})}catch(e){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(_){}a.remove()}}
+function copyTxt(t){try{const r=navigator.clipboard.writeText(t);if(r&&r.catch)r.catch(()=>{})}catch(e){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(x){}a.remove()}}
 $("cy").onclick=()=>{
  $("cf").style.display="none";
  const added=[],touched=new Set();
@@ -175,14 +176,14 @@ $("cy").onclick=()=>{
  touched.forEach(lk=>S.lists[lk].sort((a,b)=>a.localeCompare(b,"es")));
  const m=msg();sentAt=stamp();
  S.hist.push("📨 Mensaje enviado via Whatsapp el...: "+sentAt+"\n\n"+clean(m));hi=S.hist.length-1;
- S.log.push({fecha:sentAt,coordinador:f.coord,cliente:f.cli,establecimiento:f.est,producto:f.prod,terminal:f.term,orden_producto:f.op,orden_transporte:f.ot,costo_transporte:f.costo,nota_pedido:f.nota,urgente:f.urg?"SI":"NO",petroecuador:f.petro,facturacion:f.fact,prioridad_factura:f.prio,guia_electronica:f.guia,factor:f.factor?"SI":"NO",despachos:d.filter(r=>r.q).map(r=>[num(r.q)+" gal",r.f,r.h,r.c].filter(Boolean).join(" | ")).join(" ; ")});save();
+ S.log.push({fecha:sentAt,coordinador:f.coord,cliente:f.cli,establecimiento:f.est,producto:f.prod,terminal:f.term,orden_producto:f.op,orden_transporte:f.ot,costo_transporte:f.costo,nota_pedido:f.nota,petroecuador:f.petro,facturador:f.fact,prioridad:f.prio,guia_electronica:f.guia});
  const url="https://api.whatsapp.com/send?phone="+S.phone.replace(/\D/g,"")+"&text="+encodeURIComponent(m)+"&app_absent=1&send=1";
  const a=$("wl");a.href=url;a.style.display="block";
  copyTxt(m);
  try{a.click()}catch(e){}
  lists();buildForm();upd();hist();
  if(added.length)$("sent").textContent+=" Se agregaron a Ajustes: "+added.join(", ")+".";};
-$("cp").onclick=async()=>{const t=msg();try{await navigator.clipboard.writeText(t);$("cp").textContent="✅ Copiado"}catch(e){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(_){}a.remove();$("cp").textContent="✅ Copiado"}setTimeout(()=>$("cp").textContent="📋 Copiar",1500)};
+$("cp").onclick=async()=>{const t=msg();try{await navigator.clipboard.writeText(t);$("cp").textContent="✅ Copiado"}catch(e){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");$("cp").textContent="✅ Copiado"}catch(x){}}};
 $("nw").onclick=()=>{sentAt="";$("wl").style.display="none";$("cf").style.display="none";
  f={coord:"",cli:"",est:"",prod:"",term:"",op:"",ot:"",costo:"",nota:"",urg:false,petro:"",fact:"",prio:"",guia:"",factor:false};
  d=[{q:"",f:"",h:"",c:""}];buildForm();buildDs();
@@ -192,9 +193,10 @@ $("nw").onclick=()=>{sentAt="";$("wl").style.display="none";$("cf").style.displa
  upd();window.scrollTo(0,0)};
 $("add").onclick=()=>{d.push({q:"",f:"",h:"",c:""});buildDs()};
 function hist(){const n=S.hist.length;$("hc").textContent=n?(hi+1)+" de "+n:"vacío ⛔";$("hv").textContent=n?S.hist[hi]:"Aún no hay mensajes enviados.";$("hp").disabled=hi<=0;$("hn").disabled=hi>=n-1}
-$("hp").onclick=()=>{if(hi>0)hi--;hist()};$("hn").onclick=()=>{if(hi<S.hist.length-1)hi++;hist()};
+$("hp").onclick=()=>{if(hi>0)hi--;hist()};
+$("hn").onclick=()=>{if(hi<S.hist.length-1)hi++;hist()};
 function lists(){$("ph").value=S.phone;["personal","productos","terminales","clientes","estab"].forEach(k=>$("l_"+k).value=S.lists[k].join("\n"))}
-$("sv").onclick=()=>{S.phone=$("ph").value.replace(/\D/g,"")||S.phone;["personal","productos","terminales","clientes","estab"].forEach(k=>S.lists[k]=$("l_"+k).value.split("\n").map(x=>x.trim()).filter(Boolean));sortLists();save();lists();buildForm();upd();$("sv").textContent="✅ Guardado";setTimeout(()=>$("sv").textContent="Guardar ajustes",1500)};
+$("sv").onclick=()=>{S.phone=$("ph").value.replace(/\D/g,"")||S.phone;["personal","productos","terminales","clientes","estab"].forEach(k=>S.lists[k]=$("l_"+k).value.split("\n").map(x=>x.trim()).filter(x=>x));sortLists();save();lists();buildForm();upd()};
 buildForm();buildDs();lists();hist();upd();
 
 // ---------- Excel ----------

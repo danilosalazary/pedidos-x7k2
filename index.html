@@ -7,20 +7,20 @@
 <meta name="apple-mobile-web-app-title" content="Pedidos">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#128c7e">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23128c7e' width='100' height='100'/%3E%3Ctext y='85' font-size='70' x='15'%3E%F0%9F%9B%A2%EF%B8%8F%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect fill='%23128c7e' width='180' height='180'/%3E%3Ctext y='135' font-size='110' x='35'%3E%F0%9F%9B%A2%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23128c7e' width='100' height='100'/%3E%3Ctext y='85' font-size='70' x='15[...]">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect fill='%23128c7e' width='180' height='180'/%3E%3Ctext y='135' font-si[...]">
 <style>
-:root{--bg:#f4f5f7;--card:#fff;--tx:#1b1f24;--mu:#6b7280;--bd:#d5d9df;--ac:#128c7e;--rd:#d00000;--bl:#1f4fd8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+:root{--bg:#f4f5f7;--card:#fff;--tx:#1b1f24;--mu:#6b7280;--bd:#d5d9df;--ac:#128c7e;--rd:#d00000;--bl:#1f4fd8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-[...]}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111418;--card:#1b2026;--tx:#e8eaed;--mu:#9aa3ad;--bd:#343b44}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased}
 html{height:100%;width:100%}
-body{margin:0;padding:10px;background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,Segoe UI,Roboto,'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;max-width:900px;margin:0 auto;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+body{margin:0;padding:10px;background:var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,Segoe UI,Roboto,'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;max-width:9[...]}
 h1{font-size:18px;margin:4px 0 10px;display:flex;justify-content:space-between;align-items:center}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:10px}
 label{display:block;font-size:12px;color:var(--mu);margin:8px 0 2px;font-weight:500}
 input,select,textarea{width:100%;font:inherit;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);-webkit-appearance:none;appearance:none}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px rgba(18,140,126,0.1)}
-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;background-size:20px;padding-right:32px}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%[...]}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .form-grid .chk{grid-column:1/-1}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -43,7 +43,7 @@ button.p:active{background:#0d6b5f}
 button:disabled{opacity:.45;cursor:not-allowed}
 .bar{display:flex;gap:8px;flex-wrap:wrap}
 .bar button{flex:1;min-width:80px}
-#pv{white-space:pre-wrap;word-break:break-word;border:3px solid var(--bl);border-radius:12px;padding:12px;background:var(--bg);font-size:14px;font-family:monospace;line-height:1.6;min-height:100px}
+#pv{white-space:pre-wrap;word-break:break-word;border:3px solid var(--bl);border-radius:12px;padding:12px;background:var(--bg);font-size:14px;font-family:monospace;line-height:1.6;min-height:100px[...]
 #pv.u{border-color:var(--rd)}
 .mu{color:var(--mu);font-size:13px}
 .x{padding:8px 12px}
@@ -59,7 +59,7 @@ textarea{resize:vertical;font-family:inherit;min-height:120px}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head><body>
-<noscript><div style="background:#b00020;color:#fff;padding:12px;border-radius:10px;margin-bottom:10px">Este navegador tiene JavaScript desactivado. Abre el archivo directamente en el navegador.</div></noscript>
+<noscript><div style="background:#b00020;color:#fff;padding:12px;border-radius:10px;margin-bottom:10px">Este navegador tiene JavaScript desactivado. Abre el archivo directamente en el navegador.</[...]
 <div id="err" style="display:none;background:#b00020;color:#fff;padding:12px;border-radius:10px;margin-bottom:10px;font-size:14px"></div>
 <h1>Pedidos SECSA 🗓️<span class="mu" id="st"></span></h1>
 
@@ -69,8 +69,8 @@ textarea{resize:vertical;font-family:inherit;min-height:120px}
 
 <div class="card"><b>Vista previa 💻🔎</b><div id="pv" style="margin-top:8px"></div>
 <div class="bar" style="margin-top:10px"><button id="cp">📋 Copiar</button><button class="p" id="sd">📨 WhatsApp</button><button id="nw">🆕 Nuevo</button></div>
-<div id="cf" class="card" style="display:none;margin:10px 0 0;border-color:var(--ac)"><b>¿Seguro de enviar?</b><div class="bar" style="margin-top:8px"><button class="p" id="cy">Sí, enviar</button><button id="cn">Cancelar</button></div></div>
-<a id="wl" href="#" target="_blank" rel="noopener noreferrer" style="display:none;margin-top:10px;text-align:center;text-decoration:none;background:var(--ac);color:#fff;padding:13px;border-radius:10px;font-weight:600">📱 Abrir WhatsApp</a>
+<div id="cf" class="card" style="display:none;margin:10px 0 0;border-color:var(--ac)"><b>¿Seguro de enviar?</b><div class="bar" style="margin-top:8px"><button class="p" id="cy">Sí, enviar</butto[...]
+<a id="wl" href="#" target="_blank" rel="noopener noreferrer" style="display:none;margin-top:10px;text-align:center;text-decoration:none;background:var(--ac);color:#fff;padding:13px;border-radius:[...]
 <div class="mu" id="sent" style="margin-top:8px"></div></div>
 
 <div class="card"><div class="hh"><b>Histórico 📊🗃️</b><span class="mu" id="hc"></span></div>
@@ -94,11 +94,11 @@ textarea{resize:vertical;font-family:inherit;min-height:120px}
 <script>
 window.onerror=function(m,u,l,c){var e=document.getElementById("err");if(e){e.style.display="block";e.textContent="⚠️ Error: "+m}};
 const L0={personal:["Santiago Agila","Nathalia Valarezo","Natalia Perez","Diana Cabezas","Diego Freire","Danilo Salazar","Josue Alvarado","Lenin Rosero","Oscar Jimbo","Jessica Acosta"],
-productos:["AVGAS NACIONAL","AVGAS PARTICULAR","DIESEL 2 PESQUERO","DIESEL 2 ATUNERO","DIESEL 2 CAMARONERO","DIESEL 2 INDUSTRIAL","DIESEL 2 PETROLERO","DIESEL PREMIUM PETROLERO","DIESEL PREMIUM ATUNERO"],
-terminales:["Ambato","Balao","Baltra","Barbasquillo","Beaterio","Challuabamba","Esmeraldas","La Toma","La Troncal","Libertad","Monteverde","Oyambaro","Pascuales","Riobamba","Salitral","Santo Domingo","Sipía","Tena","Transval","Turbo","Vacamonte"],
+productos:["AVGAS NACIONAL","AVGAS PARTICULAR","DIESEL 2 PESQUERO","DIESEL 2 ATUNERO","DIESEL 2 CAMARONERO","DIESEL 2 INDUSTRIAL","DIESEL 2 PETROLERO","DIESEL PREMIUM PETROLERO","DIESEL PREMIUM AT[...]
+terminales:["Ambato","Balao","Baltra","Barbasquillo","Beaterio","Challuabamba","Esmeraldas","La Toma","La Troncal","Libertad","Monteverde","Oyambaro","Pascuales","Riobamba","Salitral","Santo Domin[...]
 clientes:["ACUISHRIMP","AEROFAQ","AIFA","CORPFISHTUNA S.A.","ECUACORRIENTE S.A.","FUNDAMETZ","METABAZ","PECKSAMBIENTE","PESQUERA POLAR SALANGO S.A.","TECOPESCA"],
 estab:["PISTA ESTRELLA","PISTA MONTAÑITA","PISTA PAYO"]};
-const PRIO={Alta:"favor su ayuda con la factura inmediatamente cuando nos envíe los documentos el gestor",Media:"favor su ayuda con la factura en el transcurso del día cuando nos envíe los documentos el gestor",Baja:"favor su ayuda con la factura en el transcurso de la semana cuando nos envíe los documentos el gestor"};
+const PRIO={Alta:"favor su ayuda con la factura inmediatamente cuando nos envíe los documentos el gestor",Media:"favor su ayuda con la factura en el transcurso del día cuando nos envíe los doc[...]
 const K="secsa_v1";let S;
 try{S=JSON.parse(localStorage.getItem(K)||"null")}catch(e){S=null}
 S=S||{};S.lists=Object.assign({},L0,S.lists||{});S.hist=S.hist||[];S.log=S.log||[];if(!S.phone||S.phone==="593983345527")S.phone="593989956236";
@@ -108,7 +108,7 @@ let tmr=null;const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch
 const $=id=>document.getElementById(id);
 let f={coord:"",cli:"",est:"",prod:"",term:"",op:"",ot:"",costo:"",nota:"",urg:false,petro:"",fact:"",prio:"",guia:"",factor:false};
 let d=[{q:"",f:"",h:"",c:""}];let sentAt="";let hi=S.hist.length-1;
-const SPEC=[["coord","Coordinador 👩🏽‍💻","combo","personal"],["cli","Cliente 🏢","combo","clientes"],["est","Establecimiento 📌","dl","estab"],["prod","Producto ⛽","combo","productos"],["term","Terminal 🏗️","combo","terminales"],["op","Orden Producto","text"],["ot","Orden Transporte","text"],["costo","Costo 💵","num"],["nota","Gestor 👩🏽‍💼","combo","personal"],["urg","¡URGENTE!","chk"],["petro","Petroecuador 👩🏽‍💻","combo","personal"],["fact","Facturador 👩🏽‍💼","combo","personal"],["prio","Prioridad","sel","prio"],["guia","Guía Electrónica 📃","combo","personal"],["factor","Ajuste Temp 🌡️","chk"]];
+const SPEC=[["coord","Coordinador 👩🏽‍💻","combo","personal"],["cli","Cliente 🏢","combo","clientes"],["est","Establecimiento 📌","dl","estab"],["prod","Producto ⛽","combo","produc[...]
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
 function opts(k){const a=k==="prio"?Object.keys(PRIO):S.lists[k];return '<option value=""></option>'+a.map(x=>`<option>${esc(x)}</option>`).join("")}
 const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim().toLowerCase();
@@ -117,9 +117,9 @@ function buildForm(){
     if(t==="chk")return `<div class="chk"><input type="checkbox" data-k="${k}" id="f_${k}"><label for="f_${k}">${l}</label></div>`;
     if(t==="sel")return `<div><label>${l}</label><select data-k="${k}">${opts(o)}</select></div>`;
     if(t==="combo"){const cur=f[k],inList=!cur||S.lists[o].some(x=>norm(x)===norm(cur));
-      return `<div><label>${l}</label><select data-k="${k}" data-combo="1"><option value=""></option><option value="__new__"${inList?"":" selected"}>✏️ Otro…</option>${S.lists[o].map(x=>`<option>${esc(x)}</option>`).join("")}</select><input type="text" data-new="${k}" style="display:none;margin-top:4px"></div>`;
+      return `<div><label>${l}</label><select data-k="${k}" data-combo="1"><option value=""></option><option value="__new__"${inList?"":" selected"}>✏️ Otro…</option>${S.lists[o].map(x=>`<o[...]
     }
-    if(t==="dl")return `<div><label>${l}</label><input data-k="${k}" list="dl_${k}" autocomplete="off"><datalist id="dl_${k}">${S.lists[o].map(x=>`<option value="${esc(x)}">`).join("")}</datalist></div>`;
+    if(t==="dl")return `<div><label>${l}</label><input data-k="${k}" list="dl_${k}" autocomplete="off"><datalist id="dl_${k}">${S.lists[o].map(x=>`<option value="${esc(x)}">`).join("")}</datalist[...]
     return `<div><label>${l}</label><input data-k="${k}" ${t==="num"?'inputmode="decimal" autocomplete="off" placeholder="0,00"':''}></div>`;
   });
 
@@ -147,159 +147,14 @@ function buildForm(){
   });
 }
 function buildDs(){
-  $("ds").innerHTML=d.map((r,i)=>`<div class="row3" data-i="${i}"><div><label>Cantidad 🔢</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div><div><label>Fecha 📅</label><input data-f="f" type="date" value="${r.f||''}"></div><div><label>Hora ⏲️</label><input data-f="h" type="time" value="${r.h||''}"></div><div><label>Transporte 🚛</label><input data-f="c" inputmode="decimal" placeholder="0,00" value="${r.c?cshow(r.c):''}"></div><button data-del="${i}">🗑️ Eliminar</button></div>`).join("");
+  $("ds").innerHTML=d.map((r,i)=>`<div class="row3" data-i="${i}"><div><label>Cantidad 🔢</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div><div><label>Fecha[...]
   $("ds").querySelectorAll("input").forEach(e=>e.oninput=ev=>{const r=d[+e.closest("[data-i]").dataset.i],k=e.dataset.f;r[k]=k==="q"?maskQ(e):k==="c"?maskC(e,ev):e.value;upd()});
   $("ds").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{d.splice(+b.dataset.del,1);buildDs();upd()})}
 const grp=s=>s.replace(/\B(?=(\d{3})+(?!\d))/g,".");
 const num=q=>{const s=String(q).trim();return /^\d+$/.test(s)?grp(s):s};
 const cshow=v=>{if(v===""||v==null)return"";const q=String(v).split(".");return"$ "+grp(q[0])+(q.length>1?","+q[1]:"")};
-function maskQ(el){const nd=el.value.slice(0,el.selectionStart).replace(/\D/g,"").length,d=el.value.replace(/\D/g,"").replace(/^0+/,"\");el.value=d?grp(d):"";let c=0,i=0;for(;i<el.value.length&&c<nd;i++)if(/\d/.test(el.value[i]))c++;try{el.setSelectionRange(i,i)}catch(x){}}
+function maskQ(el){const nd=el.value.slice(0,el.selectionStart).replace(/\D/g,"").length,d=el.value.replace(/\D/g,"").replace(/^0+/,"\");el.value=d?grp(d):"";let c=0,i=0;for(;i<el.value.length&&c<...]
 function maskC(el,ev){let v=el.value,cp=el.selectionStart;
 if(ev&&ev.data&&/^[.,]$/.test(ev.data)){const i=cp-1,rest=v.slice(0,i)+v.slice(i+1);if(/,|\|/.test(rest)){v=rest;cp--}else v=v.slice(0,i)+"|"+v.slice(i+1)}
 else if(ev&&ev.inputType==="insertFromPaste"&&!/,/.test(v)&&/^[^.]*\.\d{1,2}$/.test(v.replace(/[$\s]/g,"")))v=v.replace(".","|");
-const nd=v.slice(0,cp).replace(/[^\d,|]/g,"").length,s=v.replace(/[^\d,|]/g,""),p=s.search(/[,|]/);
-let ent=(p<0?s:s.slice(0,p)).replace(/\D/g,"").replace(/^0+(?=\d)/,""),dec=p<0?null:s.slice(p+1).replace(/\D/g,"").slice(0,2);
-if(dec!==null&&!ent)ent="0";
-el.value=ent?"$ "+grp(ent)+(dec!==null?","+dec:""):"";
-let c=0,i=0;for(;i<el.value.length&&c<nd;i++)if(/[\d,]/.test(el.value[i]))c++;
-try{el.setSelectionRange(i,i)}catch(x){}
-return ent?ent+(dec?"."+dec:""):""}
-const money=v=>{const n=parseFloat(String(v).replace(",","."));if(isNaN(n))return v;const [i,x]=n.toFixed(2).split(".");return grp(i)+","+x};
-const DIA=["domingo","lunes","martes","miércoles","jueves","viernes","sábado"],MES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
-function fecha(s){const [y,m,dd]=s.split("-").map(Number),t=new Date(y,m-1,dd),n=new Date();const hoy=t.toDateString()===n.toDateString();return (hoy?"HOY, ":"")+DIA[t.getDay()]+" "+dd+" de "+MES[m-1]}
-const CF=["🕛","🕐","🕑","🕒","🕓","🕔","🕕","🕖","🕗","🕘","🕙","🕚"],CH=["🕧","🕜","🕝","🕞","🕟","🕠","🕡","🕢","🕣","🕤","🕥","🕦"];
-function clock(h){const [a,b]=h.split(":").map(Number);const i=Math.floor((a*60+b)/30)%24;return (i%2?CH:CF)[Math.floor(i/2)%12]}
-const greet=()=>{const h=new Date().getHours();return h<=11?"🌅 Buenos días":h<=18?"🌇 Buenas tardes":"🌆 Buenas noches"};
-const icon=p=>p?(/INDUSTRIAL/.test(p)?"🏭":"⛽"):"⛽";
-function msg(){
- const U=s=>s.toUpperCase();
- let m=greet()+"\n🆕 @"+f.coord+" por favor coordinar el siguiente pedido";
- if(f.urg)m+="\n\n‼️ *URGENTE* ‼️";
- m+="\n\n🏢 Cliente :  *"+U(f.cli)+"*"+(f.est?"  📌  *"+U(f.est)+"*":"");
- m+="\n🏗️ Terminal : *"+U(f.term)+"*\n"+icon(f.prod)+" Producto : *"+f.prod+"*\n";
- const R=d.filter(r=>r.q),mu=R.length>1;
- R.forEach(r=>{const sp=mu?" - ":"\n";let t="🔢 Cantidad : *"+num(r.q)+"* galones";
-  if(r.f)t+=sp+"📅 Despacho : *"+fecha(r.f)+"*";
-  if(r.h)t+=sp+"⏲️ Hora Entrega : *"+r.h.replace(":","h")+"* "+clock(r.h);
-  if(r.c)t+=sp+"🚛 Transporte : $ *"+money(r.c)+"*";
-  m+=t+(mu?"\n":"")});
- if(!mu)m+="\n";
- if(f.op)m+="📄 Orden producto : *"+f.op+"*\n";
- if(f.ot)m+="📄 Orden transporte : *"+f.ot+"*\n";
- m+="\n📜 @"+f.nota+" por favor su ayuda con la emisión de la orden"+(f.urg?" de manera *PRIORITARIA*":"")+(f.factor?" una vez que @"+f.coord+" nos ayude con el factor de corrección 🌡️":"");
- if(f.petro)m+="\n👩🏽\u200d💻 @"+f.petro+" por favor su ayuda con la programación del despacho con PETROECUADOR";
- if(f.fact&&f.prio)m+="\n🧾 @"+f.fact+" "+PRIO[f.prio]+" 📋 @"+f.coord;
- if(f.costo)m+="\n🚛 @"+f.fact+" el costo del transporte es _USD_ *$ "+money(f.costo)+"*";
- else if(f.fact&&d.some(r=>r.c))m+="\n🚛 @"+f.fact+" considerar el costo del transporte por cada orden";
- if(f.guia)m+="\n📃 @"+f.guia+" favor su ayuda con la guía electrónica inmediatamente cuando nos envíe los documentos el gestor 📋 @"+f.coord;
- return m+"\n\n👩🏽\u200d💼 _Quedo pendiente para confirmar al cliente la entrega_ 🫱🏼\u200d🫲🏼"}
-const clean=s=>s.replace(/\*/g,"").replace(/_/g,"").replace(/@/g,"");
-const ready=()=>f.coord&&f.cli&&f.prod&&f.term&&f.nota&&d.some(r=>r.q);
-function upd(){
- $("pv").textContent=clean(msg());$("pv").className=f.urg?"u":"";
- $("sd").disabled=!!sentAt||!ready();
- $("sent").textContent=sentAt?"✅ Registrado el "+sentAt:ready()?"Completo ✅":"Falta completar"}
-function stamp(){const n=new Date(),p=x=>String(x).padStart(2,"0");return p(n.getDate())+"."+MES[n.getMonth()].slice(0,3)+"."+n.getFullYear()+" - "+p(n.getHours())+":"+p(n.getMinutes())+":"+p(n.getSeconds())}
-$("sd").onclick=()=>{$("cf").style.display="block"};
-$("cn").onclick=()=>{$("cf").style.display="none"};
-function copyTxt(t){try{const r=navigator.clipboard.writeText(t);if(r&&r.catch)r.catch(()=>{})}catch(e){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(x){}a.remove()}}
-$("cy").onclick=()=>{
- $("cf").style.display="none";
- const added=[],touched=new Set();
- [["personal","coord"],["personal","nota"],["personal","petro"],["personal","fact"],["personal","guia"],["productos","prod"],["terminales","term"],["clientes","cli"],["estab","est"]].forEach(([lk,fk])=>{
-  let v=String(f[fk]||"").replace(/\s+/g," ").trim();if(!v)return;
-  const ex=S.lists[lk].find(x=>norm(x)===norm(v));
-  if(ex){f[fk]=ex;return}
-  if(lk==="productos"||lk==="clientes"||lk==="estab")v=v.toUpperCase();
-  S.lists[lk].push(v);f[fk]=v;added.push(v);touched.add(lk)});
- touched.forEach(lk=>S.lists[lk].sort((a,b)=>a.localeCompare(b,"es")));
- const m=msg();sentAt=stamp();
- S.hist.push("📨 Mensaje enviado via Whatsapp el...: "+sentAt+"\n\n"+clean(m));hi=S.hist.length-1;
- S.log.push({fecha:sentAt,coordinador:f.coord,cliente:f.cli,establecimiento:f.est,producto:f.prod,terminal:f.term,orden_producto:f.op,orden_transporte:f.ot,costo_transporte:f.costo,nota_pedido:f.nota,petroecuador:f.petro,facturador:f.fact,prioridad:f.prio,guia_electronica:f.guia});
- const url="https://api.whatsapp.com/send?phone="+S.phone.replace(/\D/g,"")+"&text="+encodeURIComponent(m)+"&app_absent=1&send=1";
- const a=$("wl");a.href=url;a.style.display="block";
- copyTxt(m);
- try{a.click()}catch(e){}
- lists();buildForm();upd();hist();
- if(added.length)$("sent").textContent+=" Agregados: "+added.join(", ")+"."};
-$("cp").onclick=async()=>{const t=msg();try{await navigator.clipboard.writeText(t);$("cp").textContent="✅ Copiado"}catch(e){copyTxt(t);$("cp").textContent="✅ Copiado"}};
-$("nw").onclick=()=>{sentAt="";$("wl").style.display="none";$("cf").style.display="none";
- f={coord:"",cli:"",est:"",prod:"",term:"",op:"",ot:"",costo:"",nota:"",urg:false,petro:"",fact:"",prio:"",guia:"",factor:false};
- d=[{q:"",f:"",h:"",c:""}];buildForm();buildDs();
- document.querySelectorAll("#form input:not([type=checkbox]),#ds input").forEach(e=>{e.value=""});
- document.querySelectorAll("#form select").forEach(e=>{e.selectedIndex=0});
- document.querySelectorAll("#form input[type=checkbox]").forEach(e=>{e.checked=false});
- upd();window.scrollTo(0,0)};
-$("add").onclick=()=>{d.push({q:"",f:"",h:"",c:""});buildDs()};
-function hist(){const n=S.hist.length;$("hc").textContent=n?(hi+1)+" de "+n:"vacío ⛔";$("hv").textContent=n?S.hist[hi]:"Aún no hay mensajes enviados.";$("hp").disabled=hi<=0;$("hn").disabled=hi>=n-1}
-$("hp").onclick=()=>{if(hi>0)hi--;hist()};
-$("hn").onclick=()=>{if(hi<S.hist.length-1)hi++;hist()};
-function lists(){$("ph").value=S.phone;["personal","productos","terminales","clientes","estab"].forEach(k=>$("l_"+k).value=S.lists[k].join("\n"))}
-$("sv").onclick=()=>{S.phone=$("ph").value.replace(/\D/g,"")||S.phone;["personal","productos","terminales","clientes","estab"].forEach(k=>S.lists[k]=$("l_"+k).value.split("\n").map(x=>x.trim()).filter(x=>x));sortLists();save();lists();buildForm();upd()};
-buildForm();buildDs();lists();hist();upd();
-const hasX=typeof XLSX!=="undefined";
-if(!hasX){$("im").disabled=true;$("ex").disabled=true;$("xm").textContent="⚠️ Excel no disponible en este navegador."}
-$("im").onclick=()=>$("fi").click();
-$("fi").onchange=async e=>{
- const file=e.target.files[0];if(!file)return;
- try{
-  const wb=XLSX.read(await file.arrayBuffer(),{type:"array"});
-  const get=n=>{const k=wb.SheetNames.find(x=>x.toLowerCase()===n);return k?XLSX.utils.sheet_to_json(wb.Sheets[k],{header:1,defval:""}):null};
-  let nl=0,nh=0;const data=get("data");
-  if(data&&data.length){
-   const hd=data[0].map(x=>String(x).trim().toLowerCase());
-   [["personal","personal"],["productos","productos"],["clientes","clientes"],["establecimientos","estab"],["terminales","terminales"]].forEach(([h,k])=>{
-    const c=hd.indexOf(h);if(c<0)return;
-    data.slice(1).forEach(r=>{const v=String(r[c]||"").trim();if(v&&!S.lists[k].some(x=>x.toUpperCase()===v.toUpperCase())){S.lists[k].push(v);nl++}})})}
-  const env=get("enviados");
-  if(env&&env.length){env.slice(1).forEach(r=>{const v=String(r[0]||"").trim();if(v&&!S.hist.includes(v)){S.hist.unshift(v);nh++}});hi=S.hist.length-1}
-  sortLists();save();lists();buildForm();hist();upd();
-  $("xm").textContent="✅ "+file.name+": "+nl+" datos nuevos + "+nh+" mensajes.";
- }catch(err){$("xm").textContent="❌ Error al leer el archivo."}
- e.target.value=""};
-async function saveFile(name,buf){
- try{if(window.claude&&claude.use){const dl=await claude.use("downloads");if(dl){await dl.save({filename:name,data:buf});return}}}
- catch(e){if(e&&e.code==="declined")throw e}
- const type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
- const blob=new Blob([buf],{type});
- try{const file=new File([blob],name,{type});
-  if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:name});return}}
- catch(e){if(e&&e.name==="AbortError")throw {code:"declined"}}
- const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
- setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000)}
-$("ex").onclick=async()=>{
- if(!hasX)return;
- try{
-  const wb=XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([["Historial"],...S.hist.map(x=>[x])]),"Enviados");
-  XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(S.log.length?S.log:[{fecha:""}]),"Pedidos");
-  const buf=XLSX.write(wb,{type:"array",bookType:"xlsx"});
-  await saveFile("Pedidos_SECSA_enviados.xlsx",buf);
-  $("xm").textContent="✅ Archivo listo para descargar.";
- }catch(err){$("xm").textContent=(err&&err.code==="declined")?"❌ Guardado cancelado.":"❌ Error al guardar."}};
-let REF=null;
-async function pushRemote(){
- if(!REF)return;
- try{await REF.set({phone:S.phone,lists:S.lists,hist:S.hist.slice(-80),log:S.log.slice(-80),t:Date.now()})}catch(e){}}
-async function initSync(){
- try{
-  if(!window.claude||!claude.use)return;
-  const db=await claude.use("db"),user=await claude.use("user");
-  if(!db||!user)return;
-  const uid=await user.id();if(!uid)return;
-  REF=db.doc("data/users/"+uid+"/state");
-  const snap=await REF.get();
-  if(snap.exists){
-   const r=snap.data()||{};
-   if(r.lists)Object.keys(S.lists).forEach(k=>(r.lists[k]||[]).forEach(v=>{if(!S.lists[k].some(x=>x.toUpperCase()===String(v).toUpperCase()))S.lists[k].push(v)}));
-   (r.hist||[]).forEach(v=>{if(!S.hist.includes(v))S.hist.push(v)});
-   (r.log||[]).forEach(v=>{if(!S.log.some(x=>x.fecha===v.fecha&&x.cliente===v.cliente))S.log.push(v)});
-   sortLists();hi=S.hist.length-1;
-   try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}
-   lists();buildForm();hist();upd()}
-  await pushRemote();
-  $("sy").textContent="☁️ Sincronizado con tu cuenta Claude.";
- }catch(e){REF=null}}
-$("sy").textContent="💾 Datos en este navegador.";
-initSync();
-</script></body></html>
+const nd=v.slice(0,cp).replace(/[^\d,|]/g,"").length,s=v.replace(/[^\d,|]/g,"\

@@ -79,11 +79,9 @@ function sortLists(){Object.keys(S.lists).forEach(k=>S.lists[k].sort((a,b)=>a.lo
 sortLists();
 let tmr=null;const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}clearTimeout(tmr);tmr=setTimeout(pushRemote,900)};
 const $=id=>document.getElementById(id);
-let f={coord:"",cli:"",est:"",prod:"",term:"",op:"",ot:"",nota:"",urg:false,petro:"",fact:"",prio:"",guia:"",factor:false};
- let d=[{q:"",f:"",h:"",c:""}];let sentAt="";let hi=S.hist.length-1;
-const SPEC=[["coord","Coordinador Terminal 👩🏽‍💻","combo","personal"],["cli","Cliente 🏢","combo","clientes"],["est","Establecimiento 📌","dl","estab"],["prod","Producto ⛽","combo","productos"],["term","Terminal de Carga 🏭","combo","terminales"],["op","Orden Producto 🛢️","txt"],["ot","Orden Transporte 🚛","txt"],["nota","Emite Nota Pedido 👩🏽‍💻","combo","personal"],["petro","Coordinador PETROECUADOR 👨🏽‍💼","combo","personal"],["fact","Facturación 🧾","combo","personal"],["prio","Prioridad Factura ⚠️","sel","prio"],["guia","Guía Electrónica 📋","combo","personal"]];
-.chk-row{display:flex;gap:16px;margin-top:10px}
-.chk-row .chk{margin:0}
+let f={coord:"",cli:"",est:"",prod:"",term:"",op:"",ot:"",costo:"",nota:"",urg:false,petro:"",fact:"",prio:"",guia:"",factor:false};
+let d=[{q:"",f:"",h:"",c:""}];let sentAt="";let hi=S.hist.length-1;
+const SPEC=[["coord","Coordinador Terminal 👩🏽‍💻","combo","personal"],["cli","Cliente 🏢","combo","clientes"],["est","Establecimiento 📌","dl","estab"],["prod","Producto ⛽","combo","productos"],["term","Terminal de Carga 🏭","combo","terminales"],["op","Orden Producto 🛢️","txt"],["ot","Orden Transporte 🚛","txt"],["costo","Costo Transporte 💵","num"],["nota","Emite Nota Pedido 👩🏽‍💻","combo","personal"],["urg","Urgente ‼️","chk"],["petro","Coordinador PETROECUADOR 👨🏽‍💼","combo","personal"],["fact","Facturación 🧾","combo","personal"],["prio","Prioridad Factura ⚠️","sel","prio"],["guia","Guía Electrónica 📋","combo","personal"],["factor","Factor de corrección 🌡️","chk"]];
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
 function opts(k){const a=k==="prio"?Object.keys(PRIO):S.lists[k];return '<option value=""></option>'+a.map(x=>`<option>${esc(x)}</option>`).join("")}
 const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim().toLowerCase();
@@ -96,11 +94,6 @@ function buildForm(){
    return `<label>${l}</label><select data-k="${k}" data-combo="1"><option value=""></option><option value="__new__"${inList?"":" selected"}>✏️ Escribir otro…</option>${S.lists[o].map(x=>`<option${inList&&cur&&norm(x)===norm(cur)?" selected":""}>${esc(x)}</option>`).join("")}</select><input data-new="${k}" autocomplete="off" placeholder="Escribe el nombre nuevo" value="${inList?"":esc(cur)}" style="margin-top:6px;${inList?"display:none":""}">`}
   if(t==="dl")return `<label>${l}</label><input data-k="${k}" list="dl_${k}" autocomplete="off"><datalist id="dl_${k}">${S.lists[o].map(x=>`<option value="${esc(x)}">`).join("")}</datalist>`;
   return `<label>${l}</label><input data-k="${k}" ${t==="num"?'inputmode="decimal" autocomplete="off" placeholder="$ 0,00"':''}>`}).join("");
-  const grouped = SPEC.map((_, i) => i).reduce((acc, i, _, arr) => {
-   if (i % 2 === 0) acc.push(arr.slice(i, i + 2));
-   return acc;
-  }, []).map(group => `<div class="row">${group.map(i => `<div>${document.querySelectorAll("[data-k]")[i]?.parentElement?.innerHTML || ''}</div>`).join("")}</div>`).join("");
-  $("form").innerHTML = grouped;
   $("form").querySelectorAll("[data-k]").forEach(e=>{
   const k=e.dataset.k;
   if(e.dataset.combo){
@@ -110,11 +103,7 @@ function buildForm(){
    return}
   if(e.type==="checkbox")e.checked=f[k];else e.value=k==="costo"?cshow(f[k]):f[k];
   e.oninput=e.onchange=ev=>{f[k]=e.type==="checkbox"?e.checked:k==="costo"?maskC(e,ev):e.value;upd()}})}
-if(t==="chk"){
-  const isLastURG = k === "urg";
-  const rowClass = isLastURG ? "class='chk-row'" : "";
-  return `<div class="chk" ${rowClass}><input type="checkbox" data-k="${k}" id="f_${k}"><label for="f_${k}" style="margin:0;font-size:15px;color:var(--tx)">${l}</label></div>`;
-} 
+ 
  function buildDs(){
  $("ds").innerHTML=d.map((r,i)=>`<div class="row3" data-i="${i}"><div><label>Cantidad 🔢</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div><div><label>Fecha 📅</label><input data-f="f" type="date" value="${r.f}"></div><div><label>Hora ⏲️</label><input data-f="h" type="time" value="${r.h}"></div><div><label>Costo 🚛</label><input data-f="c" inputmode="decimal" autocomplete="off" placeholder="$ 0,00" value="${cshow(r.c)}"></div>${d.length>1?`<button class="x" data-del="${i}">✕</button>`:"<span></span>"}</div>`).join("");
  $("ds").querySelectorAll("input").forEach(e=>e.oninput=ev=>{const r=d[+e.closest("[data-i]").dataset.i],k=e.dataset.f;r[k]=k==="q"?maskQ(e):k==="c"?maskC(e,ev):e.value;upd()});
@@ -160,6 +149,8 @@ function msg(){
  m+="\n📜 @"+f.nota+" por favor su ayuda con la emisión de la orden"+(f.urg?" de manera *PRIORITARIA*":"")+(f.factor?" una vez que @"+f.coord+" nos ayude con el factor de corrección 🌡️":"");
  if(f.petro)m+="\n👩🏽\u200d💻 @"+f.petro+" por favor su ayuda con la programación del despacho con PETROECUADOR";
  if(f.fact&&f.prio)m+="\n🧾 @"+f.fact+" "+PRIO[f.prio]+" 📋 @"+f.coord;
+ if(f.costo)m+="\n🚛 @"+f.fact+" el costo del transporte es _USD_ *$ "+money(f.costo)+"*";
+ else if(f.fact&&d.some(r=>r.c))m+="\n🚛 @"+f.fact+" considerar el costo del transporte por cada orden";
  if(f.guia)m+="\n📃 @"+f.guia+" favor su ayuda con la guía electrónica inmediatamente cuando nos envíe los documentos el gestor 📋 @"+f.coord;
  return m+"\n\n👩🏽\u200d💼 _Quedo pendiente para confirmar al cliente la entrega_ 🫱🏼\u200d🫲🏼"}
 const clean=s=>s.replace(/\*/g,"").replace(/_/g,"").replace(/@/g,"");

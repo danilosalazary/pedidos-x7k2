@@ -100,18 +100,27 @@ function buildForm(){
    ni.oninput=()=>{f[k]=ni.value;upd()};
    return}
   if(e.type==="checkbox")e.checked=f[k];else e.value=k==="costo"?cshow(f[k]):f[k];
-  e.oninput=e.onchange=()=>{f[k]=e.type==="checkbox"?e.checked:k==="costo"?maskC(e):e.value;upd()}})}
-
-function buildDs(){
+  e.oninput=e.onchange=ev=>{f[k]=e.type==="checkbox"?e.checked:k==="costo"?maskC(e,ev):e.value;upd()}})}
+ 
+ function buildDs(){
  $("ds").innerHTML=d.map((r,i)=>`<div class="row3" data-i="${i}"><div><label>Cantidad (gal)</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div><div><label>Fecha</label><input data-f="f" type="date" value="${r.f}"></div><div><label>Hora</label><input data-f="h" type="time" value="${r.h}"></div><div><label>Costo</label><input data-f="c" inputmode="decimal" autocomplete="off" placeholder="$ 0,00" value="${cshow(r.c)}"></div>${d.length>1?`<button class="x" data-del="${i}">✕</button>`:"<span></span>"}</div>`).join("");
- $("ds").querySelectorAll("input").forEach(e=>e.oninput=()=>{const r=d[+e.closest("[data-i]").dataset.i],k=e.dataset.f;r[k]=k==="q"?maskQ(e):k==="c"?maskC(e):e.value;upd()});
+ $("ds").querySelectorAll("input").forEach(e=>e.oninput=ev=>{const r=d[+e.closest("[data-i]").dataset.i],k=e.dataset.f;r[k]=k==="q"?maskQ(e):k==="c"?maskC(e,ev):e.value;upd()});
  $("ds").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{d.splice(+b.dataset.del,1);buildDs();upd()})}
 const grp=s=>s.replace(/\B(?=(\d{3})+(?!\d))/g,".");
 const num=q=>{const s=String(q).trim();return /^\d+$/.test(s)?grp(s):s};
 
-const cshow=v=>v===""||v==null?"":"$ "+String(v).replace(".",",");
+const cshow=v=>{if(v===""||v==null)return"";const q=String(v).split(".");return"$ "+grp(q[0])+(q.length>1?","+q[1]:"")};
 function maskQ(el){const nd=el.value.slice(0,el.selectionStart).replace(/\D/g,"").length,d=el.value.replace(/\D/g,"").replace(/^0+/,"");el.value=d?grp(d):"";let c=0,i=0;for(;i<el.value.length&&c<nd;i++)if(/\d/.test(el.value[i]))c++;try{el.setSelectionRange(i,i)}catch(x){}return d}
-function maskC(el){const s=el.value.replace(/[^\d.,]/g,""),p=s.search(/[.,]/);let ent=p<0?s.replace(/^0+(?=\d)/,""):s.slice(0,p).replace(/^0+(?=\d)/,""),dec=p<0?null:s.slice(p+1).replace(/\D/g,"").slice(0,2);if(dec!==null&&!ent)ent="0";el.value=ent?"$ "+ent+(dec!==null?","+dec:""):"";return ent?ent+(dec?"."+dec:""):""}
+function maskC(el,ev){let v=el.value,cp=el.selectionStart;
+if(ev&&ev.data&&/^[.,]$/.test(ev.data)){const i=cp-1,rest=v.slice(0,i)+v.slice(i+1);if(/,|\|/.test(rest)){v=rest;cp--}else v=v.slice(0,i)+"|"+v.slice(i+1)}
+else if(ev&&ev.inputType==="insertFromPaste"&&!/,/.test(v)&&/^[^.]*\.\d{1,2}$/.test(v.replace(/[$\s]/g,"")))v=v.replace(".","|");
+const nd=v.slice(0,cp).replace(/[^\d,|]/g,"").length,s=v.replace(/[^\d,|]/g,""),p=s.search(/[,|]/);
+let ent=(p<0?s:s.slice(0,p)).replace(/\D/g,"").replace(/^0+(?=\d)/,""),dec=p<0?null:s.slice(p+1).replace(/\D/g,"").slice(0,2);
+if(dec!==null&&!ent)ent="0";
+el.value=ent?"$ "+grp(ent)+(dec!==null?","+dec:""):"";
+let c=0,i=0;for(;i<el.value.length&&c<nd;i++)if(/[\d,]/.test(el.value[i]))c++;
+try{el.setSelectionRange(i,i)}catch(x){}
+return ent?ent+(dec?"."+dec:""):""}
 
  const money=v=>{const n=parseFloat(String(v).replace(",","."));if(isNaN(n))return v;const [i,x]=n.toFixed(2).split(".");return grp(i)+","+x};
 const DIA=["domingo","lunes","martes","miércoles","jueves","viernes","sábado"],MES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];

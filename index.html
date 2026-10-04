@@ -70,7 +70,7 @@ textarea{resize:vertical;font-family:inherit;min-height:120px}
 <div class="card"><b>Vista previa 💻🔎</b><div id="pv" style="margin-top:8px"></div>
 <div class="bar" style="margin-top:10px"><button id="cp">📋 Copiar</button><button class="p" id="sd">📨 WhatsApp</button><button id="nw">🆕 Nuevo</button></div>
 <div id="cf" class="card" style="display:none;margin:10px 0 0;border-color:var(--ac)"><b>¿Seguro de enviar?</b><div class="bar" style="margin-top:8px"><button class="p" id="cy">Sí, enviar</button><button id="cn">Cancelar</button></div></div>
-<a id="wl" href="#" target="_blank" rel="noopener noreferrer" style="display:none;margin-top:10px;text-align:center;text-decoration:none;background:var(--ac);color:#fff;padding:13px;border-radius:10px;font-weight:600;display:block">📱 Abrir WhatsApp</a>
+<a id="wl" href="#" target="_blank" rel="noopener noreferrer" style="display:none;margin-top:10px;text-align:center;text-decoration:none;background:var(--ac);color:#fff;padding:13px;border-radius:10px;font-weight:600">📱 Abrir WhatsApp</a>
 <div class="mu" id="sent" style="margin-top:8px"></div></div>
 
 <div class="card"><div class="hh"><b>Histórico 📊🗃️</b><span class="mu" id="hc"></span></div>
@@ -102,7 +102,7 @@ const PRIO={Alta:"favor su ayuda con la factura inmediatamente cuando nos envíe
 const K="secsa_v1";let S;
 try{S=JSON.parse(localStorage.getItem(K)||"null")}catch(e){S=null}
 S=S||{};S.lists=Object.assign({},L0,S.lists||{});S.hist=S.hist||[];S.log=S.log||[];if(!S.phone||S.phone==="593983345527")S.phone="593989956236";
-function sortLists(){Object.keys(S.lists).forEach(k=>S.lists[k].sort((a,b)=>a.localeCompare(b,"es",{sensitivity:"base",numeric:true})))}
+function sortLists(){Object.keys(S.lists).forEach(k=>S.lists[k].sort((a,b)=>a.localeCompare(b,"es",{sensitivity:"base",numeric:true}))) }
 sortLists();
 let tmr=null;const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}clearTimeout(tmr);tmr=setTimeout(pushRemote,900)};
 const $=id=>document.getElementById(id);
@@ -113,33 +113,47 @@ const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g
 function opts(k){const a=k==="prio"?Object.keys(PRIO):S.lists[k];return '<option value=""></option>'+a.map(x=>`<option>${esc(x)}</option>`).join("")}
 const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim().toLowerCase();
 function buildForm(){
- const items=SPEC.map(([k,l,t,o])=>{
-  if(t==="chk")return `<div class="chk"><input type="checkbox" data-k="${k}" id="f_${k}"><label for="f_${k}">${l}</label></div>`;
-  if(t==="sel")return `<div><label>${l}</label><select data-k="${k}">${opts(o)}</select></div>`;
-  if(t==="combo"){const cur=f[k],inList=!cur||S.lists[o].some(x=>norm(x)===norm(cur));
-   return `<div><label>${l}</label><select data-k="${k}" data-combo="1"><option value=""></option><option value="__new__"${inList?"":" selected"}>✏️ Otro…</option>${S.lists[o].map(x=>`<option>${esc(x)}</option>`).join("")}</select><input type="text" data-new="${k}" style="display:none;margin-top:4px"></div>`;}
-  if(t==="dl")return `<div><label>${l}</label><input data-k="${k}" list="dl_${k}" autocomplete="off"><datalist id="dl_${k}">${S.lists[o].map(x=>`<option value="${esc(x)}">`).join("")}</datalist></div>`;
-  return `<div><label>${l}</label><input data-k="${k}" ${t==="num"?'inputmode="decimal" autocomplete="off" placeholder="0,00"':''}></div>`});
- const html=items.filter(x=>!x.includes('class="chk"')).reduce((a,b,i,arr)=>a+(i%2===0?'<div class="form-grid">'+b:(i<arr.length-1?b+'</div>':b+'</div>')),'');
- const chks=items.filter(x=>x.includes('class="chk"')).join('');
- $("form").innerHTML=html+chks;
- $("form").querySelectorAll("[data-k]").forEach(e=>{
-  const k=e.dataset.k;
-  if(e.dataset.combo){
-   const ni=$("form").querySelector('[data-new="'+k+'"]');
-   e.onchange=()=>{if(e.value==="__new__"){ni.style.display="";f[k]=ni.value;ni.focus()}else{ni.style.display="none";f[k]=e.value}upd()};
-   ni.oninput=()=>{f[k]=ni.value;upd()};
-   return}
-  if(e.type==="checkbox")e.checked=f[k];else e.value=k==="costo"?cshow(f[k]):f[k];
-  e.oninput=e.onchange=ev=>{f[k]=e.type==="checkbox"?e.checked:k==="costo"?maskC(e,ev):e.value;upd()}})}
+  const items=SPEC.map(([k,l,t,o])=>{
+    if(t==="chk")return `<div class="chk"><input type="checkbox" data-k="${k}" id="f_${k}"><label for="f_${k}">${l}</label></div>`;
+    if(t==="sel")return `<div><label>${l}</label><select data-k="${k}">${opts(o)}</select></div>`;
+    if(t==="combo"){const cur=f[k],inList=!cur||S.lists[o].some(x=>norm(x)===norm(cur));
+      return `<div><label>${l}</label><select data-k="${k}" data-combo="1"><option value=""></option><option value="__new__"${inList?"":" selected"}>✏️ Otro…</option>${S.lists[o].map(x=>`<option>${esc(x)}</option>`).join("")}</select><input type="text" data-new="${k}" style="display:none;margin-top:4px"></div>`;
+    }
+    if(t==="dl")return `<div><label>${l}</label><input data-k="${k}" list="dl_${k}" autocomplete="off"><datalist id="dl_${k}">${S.lists[o].map(x=>`<option value="${esc(x)}">`).join("")}</datalist></div>`;
+    return `<div><label>${l}</label><input data-k="${k}" ${t==="num"?'inputmode="decimal" autocomplete="off" placeholder="0,00"':''}></div>`;
+  });
+
+  const rows=[];
+  for(let i=0;i<items.length;i+=2){
+    const left=items[i]||"";
+    const right=items[i+1]||"";
+    rows.push(`<div class="form-grid">${left}${right}</div>`);
+  }
+
+  const checkboxes=SPEC.filter(([, , type]) => type === "chk").map(([k,l]) => `<div class="chk"><input type="checkbox" data-k="${k}" id="f_${k}"><label for="f_${k}">${l}</label></div>`).join("");
+
+  $("form").innerHTML = rows.join("") + checkboxes;
+
+  $("form").querySelectorAll("[data-k]").forEach(e=>{
+    const k=e.dataset.k;
+    if(e.dataset.combo){
+      const ni=$("form").querySelector('[data-new="'+k+'"]');
+      e.onchange=()=>{if(e.value==="__new__"){ni.style.display="";f[k]=ni.value;ni.focus()}else{ni.style.display="none";f[k]=e.value}upd()};
+      ni.oninput=()=>{f[k]=ni.value;upd()};
+      return;
+    }
+    if(e.type==="checkbox")e.checked=f[k];else e.value=k==="costo"?cshow(f[k]):f[k];
+    e.oninput=e.onchange=ev=>{f[k]=e.type==="checkbox"?e.checked:k==="costo"?maskC(e,ev):e.value;upd()};
+  });
+}
 function buildDs(){
- $("ds").innerHTML=d.map((r,i)=>`<div class="row3" data-i="${i}"><div><label>Cantidad 🔢</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div><div><label>Fecha 📅</label><input data-f="f" type="date" value="${r.f||''}"></div><div><label>Hora ⏲️</label><input data-f="h" type="time" value="${r.h||''}"></div><div><label>Transporte 🚛</label><input data-f="c" inputmode="decimal" placeholder="0,00" value="${r.c?cshow(r.c):''}"></div><button data-del="${i}">🗑️ Eliminar</button></div>`).join("");
- $("ds").querySelectorAll("input").forEach(e=>e.oninput=ev=>{const r=d[+e.closest("[data-i]").dataset.i],k=e.dataset.f;r[k]=k==="q"?maskQ(e):k==="c"?maskC(e,ev):e.value;upd()});
- $("ds").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{d.splice(+b.dataset.del,1);buildDs();upd()})}
+  $("ds").innerHTML=d.map((r,i)=>`<div class="row3" data-i="${i}"><div><label>Cantidad 🔢</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div><div><label>Fecha 📅</label><input data-f="f" type="date" value="${r.f||''}"></div><div><label>Hora ⏲️</label><input data-f="h" type="time" value="${r.h||''}"></div><div><label>Transporte 🚛</label><input data-f="c" inputmode="decimal" placeholder="0,00" value="${r.c?cshow(r.c):''}"></div><button data-del="${i}">🗑️ Eliminar</button></div>`).join("");
+  $("ds").querySelectorAll("input").forEach(e=>e.oninput=ev=>{const r=d[+e.closest("[data-i]").dataset.i],k=e.dataset.f;r[k]=k==="q"?maskQ(e):k==="c"?maskC(e,ev):e.value;upd()});
+  $("ds").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{d.splice(+b.dataset.del,1);buildDs();upd()})}
 const grp=s=>s.replace(/\B(?=(\d{3})+(?!\d))/g,".");
 const num=q=>{const s=String(q).trim();return /^\d+$/.test(s)?grp(s):s};
 const cshow=v=>{if(v===""||v==null)return"";const q=String(v).split(".");return"$ "+grp(q[0])+(q.length>1?","+q[1]:"")};
-function maskQ(el){const nd=el.value.slice(0,el.selectionStart).replace(/\D/g,"").length,d=el.value.replace(/\D/g,"").replace(/^0+/,"");el.value=d?grp(d):"";let c=0,i=0;for(;i<el.value.length&&c<nd;i++)if(/\d/.test(el.value[i]))c++;try{el.setSelectionRange(i,i)}catch(x){}}
+function maskQ(el){const nd=el.value.slice(0,el.selectionStart).replace(/\D/g,"").length,d=el.value.replace(/\D/g,"").replace(/^0+/,"\");el.value=d?grp(d):"";let c=0,i=0;for(;i<el.value.length&&c<nd;i++)if(/\d/.test(el.value[i]))c++;try{el.setSelectionRange(i,i)}catch(x){}}
 function maskC(el,ev){let v=el.value,cp=el.selectionStart;
 if(ev&&ev.data&&/^[.,]$/.test(ev.data)){const i=cp-1,rest=v.slice(0,i)+v.slice(i+1);if(/,|\|/.test(rest)){v=rest;cp--}else v=v.slice(0,i)+"|"+v.slice(i+1)}
 else if(ev&&ev.inputType==="insertFromPaste"&&!/,/.test(v)&&/^[^.]*\.\d{1,2}$/.test(v.replace(/[$\s]/g,"")))v=v.replace(".","|");

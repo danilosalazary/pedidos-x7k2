@@ -18,7 +18,11 @@ input,select,textarea{width:100%;font:inherit;padding:9px;border:1px solid var(-
 .row3>button,.row3>span{grid-column:1/-1}.row3>span{display:none}
 input,select,textarea{min-width:0;max-width:100%}
 .chk{display:flex;gap:8px;align-items:center;margin-top:10px}.chk input{width:22px;height:22px}
-button{font:inherit;border:0;border-radius:10px;padding:11px 14px;background:var(--bd);color:var(--tx);cursor:pointer}
+#f_urg{-webkit-appearance:none;appearance:none;flex:none;padding:0;border:2px solid var(--rd);border-radius:6px;background:var(--bg);position:relative}
+#f_urg:checked{background:var(--rd)}
+#f_urg:checked::after{content:"✓";color:#fff;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700}
+#f_urg:checked+label{color:var(--rd)!important;font-weight:700}
+ button{font:inherit;border:0;border-radius:10px;padding:11px 14px;background:var(--bd);color:var(--tx);cursor:pointer}
 button.p{background:var(--ac);color:#fff;font-weight:600}button:disabled{opacity:.45}
 .bar{display:flex;gap:8px;flex-wrap:wrap}.bar button{flex:1}
 #pv{white-space:pre-wrap;word-break:break-word;border:3px solid var(--bl);border-radius:12px;padding:10px;background:var(--bg);font-size:15px}
@@ -95,16 +99,21 @@ function buildForm(){
    e.onchange=()=>{if(e.value==="__new__"){ni.style.display="";f[k]=ni.value;ni.focus()}else{ni.style.display="none";f[k]=e.value}upd()};
    ni.oninput=()=>{f[k]=ni.value;upd()};
    return}
-  if(e.type==="checkbox")e.checked=f[k];else e.value=f[k];
-  e.oninput=e.onchange=()=>{f[k]=e.type==="checkbox"?e.checked:e.value;upd()}})}
+  if(e.type==="checkbox")e.checked=f[k];else e.value=k==="costo"?cshow(f[k]):f[k];
+  e.oninput=e.onchange=()=>{f[k]=e.type==="checkbox"?e.checked:k==="costo"?maskC(e):e.value;upd()}})}
 
 function buildDs(){
- $("ds").innerHTML=d.map((r,i)=>`<div class="row3" data-i="${i}"><div><label>Cantidad (gal)</label><input data-f="q" inputmode="numeric" value="${esc(r.q)}"></div><div><label>Fecha</label><input data-f="f" type="date" value="${r.f}"></div><div><label>Hora</label><input data-f="h" type="time" value="${r.h}"></div><div><label>Costo</label><input data-f="c" inputmode="decimal" value="${esc(r.c)}"></div>${d.length>1?`<button class="x" data-del="${i}">✕</button>`:"<span></span>"}</div>`).join("");
- $("ds").querySelectorAll("input").forEach(e=>e.oninput=()=>{d[+e.closest("[data-i]").dataset.i][e.dataset.f]=e.value;upd()});
+ $("ds").innerHTML=d.map((r,i)=>`<div class="row3" data-i="${i}"><div><label>Cantidad (gal)</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div><div><label>Fecha</label><input data-f="f" type="date" value="${r.f}"></div><div><label>Hora</label><input data-f="h" type="time" value="${r.h}"></div><div><label>Costo</label><input data-f="c" inputmode="decimal" autocomplete="off" placeholder="$ 0,00" value="${cshow(r.c)}"></div>${d.length>1?`<button class="x" data-del="${i}">✕</button>`:"<span></span>"}</div>`).join("");
+ $("ds").querySelectorAll("input").forEach(e=>e.oninput=()=>{const r=d[+e.closest("[data-i]").dataset.i],k=e.dataset.f;r[k]=k==="q"?maskQ(e):k==="c"?maskC(e):e.value;upd()});
  $("ds").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{d.splice(+b.dataset.del,1);buildDs();upd()})}
 const grp=s=>s.replace(/\B(?=(\d{3})+(?!\d))/g,".");
 const num=q=>{const s=String(q).trim();return /^\d+$/.test(s)?grp(s):s};
-const money=v=>{const n=parseFloat(String(v).replace(",","."));if(isNaN(n))return v;const [i,x]=n.toFixed(2).split(".");return grp(i)+","+x};
+
+const cshow=v=>v===""||v==null?"":"$ "+String(v).replace(".",",");
+function maskQ(el){const nd=el.value.slice(0,el.selectionStart).replace(/\D/g,"").length,d=el.value.replace(/\D/g,"").replace(/^0+/,"");el.value=d?grp(d):"";let c=0,i=0;for(;i<el.value.length&&c<nd;i++)if(/\d/.test(el.value[i]))c++;try{el.setSelectionRange(i,i)}catch(x){}return d}
+function maskC(el){const s=el.value.replace(/[^\d.,]/g,""),p=s.search(/[.,]/);let ent=p<0?s.replace(/^0+(?=\d)/,""):s.slice(0,p).replace(/^0+(?=\d)/,""),dec=p<0?null:s.slice(p+1).replace(/\D/g,"").slice(0,2);if(dec!==null&&!ent)ent="0";el.value=ent?"$ "+ent+(dec!==null?","+dec:""):"";return ent?ent+(dec?"."+dec:""):""}
+
+ const money=v=>{const n=parseFloat(String(v).replace(",","."));if(isNaN(n))return v;const [i,x]=n.toFixed(2).split(".");return grp(i)+","+x};
 const DIA=["domingo","lunes","martes","miércoles","jueves","viernes","sábado"],MES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
 function fecha(s){const [y,m,dd]=s.split("-").map(Number),t=new Date(y,m-1,dd),n=new Date();const hoy=t.toDateString()===n.toDateString();return (hoy?"HOY, ":"")+DIA[t.getDay()]+" "+dd+" de "+MES[m-1]+" de "+y}
 const CF=["🕛","🕐","🕑","🕒","🕓","🕔","🕕","🕖","🕗","🕘","🕙","🕚"],CH=["🕧","🕜","🕝","🕞","🕟","🕠","🕡","🕢","🕣","🕤","🕥","🕦"];

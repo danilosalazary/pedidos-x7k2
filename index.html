@@ -81,7 +81,9 @@ let tmr=null;const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch
 const $=id=>document.getElementById(id);
 let f={coord:"",cli:"",est:"",prod:"",term:"",op:"",ot:"",costo:"",nota:"",urg:false,petro:"",fact:"",prio:"",guia:"",factor:false};
 let d=[{q:"",f:"",h:"",c:""}];let sentAt="";let hi=S.hist.length-1;
-const SPEC=[["coord","Coordinador Terminal 👩🏽‍💻","combo","personal"],["cli","Cliente 🏢","combo","clientes"],["est","Establecimiento 📌","dl","estab"],["prod","Producto ⛽","combo","productos"],["term","Terminal de Carga 🏭","combo","terminales"],["op","Orden Producto 🛢️","txt"],["ot","Orden Transporte 🚛","txt"],["costo","Costo Transporte 💵","num"],["nota","Emite Nota Pedido 👩🏽‍💻","combo","personal"],["urg","Urgente ‼️","chk"],["petro","Coordinador PETROECUADOR 👨🏽‍💼","combo","personal"],["fact","Facturación 🧾","combo","personal"],["prio","Prioridad Factura ⚠️","sel","prio"],["guia","Guía Electrónica 📋","combo","personal"],["factor","Factor de corrección 🌡️","chk"]];
+const SPEC=[["coord","Coordinador Terminal 👩🏽‍💻","combo","personal"],["cli","Cliente 🏢","combo","clientes"],["est","Establecimiento 📌","dl","estab"],["prod","Producto ⛽","combo","productos"],["term","Terminal de Carga 🏭","combo","terminales"],["op","Orden Producto 🛢️","txt"],["ot","Orden Transporte 🚛","txt"],["nota","Emite Nota Pedido 👩🏽‍💻","combo","personal"],["petro","Coordinador PETROECUADOR 👨🏽‍💼","combo","personal"],["fact","Facturación 🧾","combo","personal"],["prio","Prioridad Factura ⚠️","sel","prio"],["guia","Guía Electrónica 📋","combo","personal"]];
+.chk-row{display:flex;gap:16px;margin-top:10px}
+.chk-row .chk{margin:0}
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
 function opts(k){const a=k==="prio"?Object.keys(PRIO):S.lists[k];return '<option value=""></option>'+a.map(x=>`<option>${esc(x)}</option>`).join("")}
 const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim().toLowerCase();
@@ -94,6 +96,11 @@ function buildForm(){
    return `<label>${l}</label><select data-k="${k}" data-combo="1"><option value=""></option><option value="__new__"${inList?"":" selected"}>✏️ Escribir otro…</option>${S.lists[o].map(x=>`<option${inList&&cur&&norm(x)===norm(cur)?" selected":""}>${esc(x)}</option>`).join("")}</select><input data-new="${k}" autocomplete="off" placeholder="Escribe el nombre nuevo" value="${inList?"":esc(cur)}" style="margin-top:6px;${inList?"display:none":""}">`}
   if(t==="dl")return `<label>${l}</label><input data-k="${k}" list="dl_${k}" autocomplete="off"><datalist id="dl_${k}">${S.lists[o].map(x=>`<option value="${esc(x)}">`).join("")}</datalist>`;
   return `<label>${l}</label><input data-k="${k}" ${t==="num"?'inputmode="decimal" autocomplete="off" placeholder="$ 0,00"':''}>`}).join("");
+  const grouped = SPEC.map((_, i) => i).reduce((acc, i, _, arr) => {
+   if (i % 2 === 0) acc.push(arr.slice(i, i + 2));
+   return acc;
+  }, []).map(group => `<div class="row">${group.map(i => `<div>${document.querySelectorAll("[data-k]")[i]?.parentElement?.innerHTML || ''}</div>`).join("")}</div>`).join("");
+  $("form").innerHTML = grouped;
   $("form").querySelectorAll("[data-k]").forEach(e=>{
   const k=e.dataset.k;
   if(e.dataset.combo){

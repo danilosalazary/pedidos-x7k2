@@ -157,7 +157,7 @@ const icon=p=>p?(/INDUSTRIAL/.test(p)?"🛢️":"🛢️"):"🛢️";
  if(f.urg)m+="\n\n‼️ *URGENTE* ‼️";
  m+="\n\n🏢 Cliente :  *"+U(f.cli)+"*"+(f.est?"  📌  *"+U(f.est)+"*":"");
  const R=d.filter(r=>r.q),mu=R.length>1,mp=new Set(R.map(r=>norm(r.p))).size>1,p0=R[0]?R[0].p:"";
-  m+="\n🏗️ Terminal : *"+U(f.term)+"*\n\n"+(f.op?"📄 Orden producto : *"+f.op+"*\n":"")+(f.ot?"📄 Orden transporte : *"+f.ot+"*\n\n":"")+(mp?"":icon(p0)+" Producto : *"+p0+"*\n");
+  m+="\n🏭 Terminal : *"+U(f.term)+"*\n\n"+(f.op?"📋 Orden producto : *"+f.op+"*\n":"")+(f.ot?"📄 Orden transporte : *"+f.ot+"*\n\n":"")+(mp?"":icon(p0)+" Producto : *"+p0+"*\n");
  R.forEach(r=>{const sp=mu?" - ":"\n";let t=(mp?icon(r.p)+" Producto : *"+r.p+"*"+sp:"")+"🔢 Cantidad : *"+num(r.q)+"* galones";
   if(r.f)t+=sp+"📅 Despacho : *"+fecha(r.f)+"*";
   if(r.h)t+=sp+"⏲️ Hora Entrega : *"+r.h.replace(":","h")+"* "+clock(r.h);

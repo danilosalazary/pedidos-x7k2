@@ -167,7 +167,7 @@ const icon=p=>p?(/INDUSTRIAL/.test(p)?"🏭":"⛽"):"⛽";
  
  m+="\n📜 @"+f.nota+" por favor su ayuda con la emisión de la orden"+(f.urg?" de manera *PRIORITARIA*":"")+(f.factor?" una vez que @"+f.coord+" nos ayude con el factor de corrección 🌡️":"");
  if(f.petro)m+="\n👩🏽\u200d💻 @"+f.petro+" por favor su ayuda con la programación del despacho con PETROECUADOR";
- if(f.fact&&f.prio)m+="\n🧾 @"+f.fact+" "+PRIO[f.prio]+" 📋 @"+f.coord;
+  if(f.fact)m+="\n🧾 @"+f.fact+" "+PRIO[f.prio||"Baja"]+" 📋 @"+f.coord;
   
  if(f.fact&&d.some(r=>r.c))m+="\n🚛 @"+f.fact+" considerar el costo del transporte por cada orden";
  

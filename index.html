@@ -19,10 +19,10 @@ input,select,textarea{width:100%;font:inherit;padding:9px;border:1px solid var(-
 input,select,textarea{min-width:0;max-width:100%}
 .chk{display:flex;gap:8px;align-items:center;margin-top:10px}.chk input{width:22px;height:22px}
 #form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 10px}#form>div{min-width:0}#form>.chk{align-self:end;margin:0 0 9px}
-#form2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:0 8px;align-items:end}#form2>div{min-width:0}
+#form2{display:grid;grid-template-columns:20% 1fr auto;gap:0 8px;align-items:end}#form2>div:first-child label{white-space:nowrap}#form2>.chk:nth-child(2){padding-left:14px}#form2>.chk:nth-child(3){justify-self:end}
 #form2>.chk{margin:0 0 9px}#form2 .chk label{font-size:13px!important;line-height:1.2}
 .dl{padding:10px 0;border-top:1px solid var(--bd)}.dl input{min-width:0;max-width:100%;min-height:44px;-webkit-appearance:none;appearance:none;display:block}
-.g2,.fh{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:8px}.g2+.g2{margin-top:6px}.g2>div{min-width:0}.fh{gap:6px}.dl>button{width:100%;margin-top:8px}
+.g2,.fh{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:8px}.g2+.g3{margin-top:6px}.g3{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) minmax(0,1fr);gap:6px;align-items:end}.g3>div{min-width:0}.g3 input{font-size:15px;padding:9px 6px}.g2>div{min-width:0}.fh{gap:6px}.dl>button{width:100%;margin-top:8px}
  #f_urg{-webkit-appearance:none;appearance:none;flex:none;padding:0;border:2px solid var(--rd);border-radius:6px;background:var(--bg);position:relative}
 #f_urg:checked{background:var(--rd)}
 #f_urg:checked::after{content:"✓";color:#fff;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700}
@@ -117,7 +117,7 @@ function buildForm(){
  
  function buildDs(){
  $("ds").innerHTML=d.map((r,i)=>{const inL=!r.p||S.lists.productos.some(x=>norm(x)===norm(r.p));
-  return `<div class="dl" data-i="${i}"><div class="g2"><div><label>Producto ⛽</label><select data-f="p"><option value=""></option><option value="__new__"${inL?"":" selected"}>✏️ Escribir otro…</option>${S.lists.productos.map(x=>`<option${inL&&r.p&&norm(x)===norm(r.p)?" selected":""}>${esc(x)}</option>`).join("")}</select><input data-f="pn" autocomplete="off" placeholder="Escribe el producto nuevo" value="${inL?"":esc(r.p)}" style="margin-top:6px;${inL?"display:none":""}"></div><div><label>Cantidad 🔢</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div></div><div class="g2"><div><label>Fecha 📅 y hora ⏲️ (opcional)</label><div class="fh"><input data-f="f" type="date" value="${r.f}"><input data-f="h" type="time" value="${r.h}"></div></div><div><label>Costo 🚛</label><input data-f="c" inputmode="decimal" autocomplete="off" placeholder="$ 0,00" value="${cshow(r.c)}"></div></div>${d.length>1?`<button class="x" data-del="${i}">✕</button>`:""}</div>`}).join("");
+  return `<div class="dl" data-i="${i}"><div class="g2"><div><label>Producto ⛽</label><select data-f="p"><option value=""></option><option value="__new__"${inL?"":" selected"}>✏️ Escribir otro…</option>${S.lists.productos.map(x=>`<option${inL&&r.p&&norm(x)===norm(r.p)?" selected":""}>${esc(x)}</option>`).join("")}</select><input data-f="pn" autocomplete="off" placeholder="Escribe el producto nuevo" value="${inL?"":esc(r.p)}" style="margin-top:6px;${inL?"display:none":""}"></div><div><label>Cantidad 🔢</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div></div><div class="g3"><div><label>Fecha 📅</label><input data-f="f" type="date" value="${r.f}"></div><div><label>Hora ⏲️ (opcional)</label><input data-f="h" type="time" value="${r.h}"></div><div><label>Costo 🚛</label><input data-f="c" inputmode="decimal" autocomplete="off" placeholder="$ 0,00" value="${cshow(r.c)}"></div></div>${d.length>1?`<button class="x" data-del="${i}">✕</button>`:""}</div>`}).join("");
  $("ds").querySelectorAll("[data-f]").forEach(e=>{
   const k=e.dataset.f,row=()=>d[+e.closest("[data-i]").dataset.i];
   if(k==="p"){const ni=e.closest("[data-i]").querySelector('[data-f="pn"]');
@@ -156,15 +156,14 @@ const icon=p=>p?(/INDUSTRIAL/.test(p)?"🏭":"⛽"):"⛽";
  if(f.urg)m+="\n\n‼️ *URGENTE* ‼️";
  m+="\n\n🏢 Cliente :  *"+U(f.cli)+"*"+(f.est?"  📌  *"+U(f.est)+"*":"");
  const R=d.filter(r=>r.q),mu=R.length>1,mp=new Set(R.map(r=>norm(r.p))).size>1,p0=R[0]?R[0].p:"";
- m+="\n🏗️ Terminal : *"+U(f.term)+"*\n"+(mp?"":icon(p0)+" Producto : *"+p0+"*\n");
+  m+="\n🏗️ Terminal : *"+U(f.term)+"*\n"+(f.op?"📄 Orden producto : *"+f.op+"*\n":"")+(f.ot?"📄 Orden transporte : *"+f.ot+"*\n":"")+(mp?"":icon(p0)+" Producto : *"+p0+"*\n");
  R.forEach(r=>{const sp=mu?" - ":"\n";let t=(mp?icon(r.p)+" Producto : *"+r.p+"*"+sp:"")+"🔢 Cantidad : *"+num(r.q)+"* galones";
   if(r.f)t+=sp+"📅 Despacho : *"+fecha(r.f)+"*";
   if(r.h)t+=sp+"⏲️ Hora Entrega : *"+r.h.replace(":","h")+"* "+clock(r.h);
   if(r.c)t+=sp+"🚛 Transporte : $ *"+money(r.c)+"*";
   m+=t+(mu?"\n":"")});
  if(!mu)m+="\n";
- if(f.op)m+="📄 Orden producto : *"+f.op+"*\n";
- if(f.ot)m+="📄 Orden transporte : *"+f.ot+"*\n";
+ 
  m+="\n📜 @"+f.nota+" por favor su ayuda con la emisión de la orden"+(f.urg?" de manera *PRIORITARIA*":"")+(f.factor?" una vez que @"+f.coord+" nos ayude con el factor de corrección 🌡️":"");
  if(f.petro)m+="\n👩🏽\u200d💻 @"+f.petro+" por favor su ayuda con la programación del despacho con PETROECUADOR";
  if(f.fact&&f.prio)m+="\n🧾 @"+f.fact+" "+PRIO[f.prio]+" 📋 @"+f.coord;
@@ -212,6 +211,7 @@ $("nw").onclick=()=>{sentAt="";$("wl").style.display="none";$("cf").style.displa
  document.querySelectorAll("#form input[type=checkbox],#form2 input[type=checkbox]").forEach(e=>{e.checked=false});
  upd();window.scrollTo(0,0)};
 $("add").onclick=()=>{d.push({p:(d[d.length-1]||{}).p||"",q:"",f:"",h:"",c:""});buildDs()};
+
 function hist(){const n=S.hist.length;$("hc").textContent=n?(hi+1)+" de "+n:"vacío ⛔";$("hv").textContent=n?S.hist[hi]:"Aún no hay mensajes enviados.";$("hp").disabled=hi<=0;$("hn").disabled=hi>=n-1}
 $("hp").onclick=()=>{if(hi>0)hi--;hist()};$("hn").onclick=()=>{if(hi<S.hist.length-1)hi++;hist()};
 function lists(){$("ph").value=S.phone;["personal","productos","terminales","clientes","estab"].forEach(k=>$("l_"+k).value=S.lists[k].join("\n"))}

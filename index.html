@@ -19,8 +19,9 @@ input,select,textarea{width:100%;font:inherit;padding:9px;border:1px solid var(-
 input,select,textarea{min-width:0;max-width:100%}
 .chk{display:flex;gap:8px;align-items:center;margin-top:10px}.chk input{width:22px;height:22px}
 #form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 10px}#form>div{min-width:0}#form>.chk{align-self:end;margin:0 0 9px}
-#form2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.8fr) minmax(0,1.3fr);gap:0 8px;align-items:end}#form2>.chk:nth-child(2){justify-self:center;flex-direction:column;gap:4px;text-align:center}#form2>.chk:nth-child(3){justify-self:end}
-#form2>.chk{margin:0 0 9px}#form2 .chk label{font-size:13px!important;line-height:1.2}
+#form2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto;gap:0 8px;align-items:end}#form2>.chk:nth-child(2){justify-self:center}#form2>.chk:nth-child(3){justify-self:end}
+
+ #form2>.chk{margin:0 0 9px}#form2 .chk{gap:6px}#form2 .chk input{flex:none}#form2 .chk label{font-size:12px!important;line-height:1.2}
 .dl{padding:10px 0;border-top:1px solid var(--bd)}.dl input{min-width:0;max-width:100%;min-height:44px;-webkit-appearance:none;appearance:none;display:block}
 .g2,.fh{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:8px}.g2+.g3{margin-top:6px}.g3{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) minmax(0,1fr);gap:6px;align-items:end}.g3>div{min-width:0}.g3 input{font-size:15px;padding:9px 6px}.g2>div{min-width:0}.fh{gap:6px}.dl>button{width:100%;margin-top:8px}
  #f_urg{-webkit-appearance:none;appearance:none;flex:none;padding:0;border:2px solid var(--rd);border-radius:6px;background:var(--bg);position:relative}
@@ -210,7 +211,8 @@ $("nw").onclick=()=>{sentAt="";$("wl").style.display="none";$("cf").style.displa
  document.querySelectorAll("#form select,#form2 select,#ds select").forEach(e=>{e.selectedIndex=0});
  document.querySelectorAll("#form input[type=checkbox],#form2 input[type=checkbox]").forEach(e=>{e.checked=false});
  upd();window.scrollTo(0,0)};
-$("add").onclick=()=>{d.push({p:(d[d.length-1]||{}).p||"",q:"",f:"",h:"",c:""});buildDs()};
+
+$("add").onclick=()=>{const L=document.querySelectorAll("#ds .dl"),l=L[L.length-1],g=k=>l&&l.querySelector('[data-f="'+k+'"]')?l.querySelector('[data-f="'+k+'"]').value:"",a=d[d.length-1]||{};d.push({p:a.p||"",q:g("q").replace(/\D/g,"")||a.q||"",f:g("f")||a.f||"",h:"",c:""});buildDs()};
 
 function hist(){const n=S.hist.length;$("hc").textContent=n?(hi+1)+" de "+n:"vacío ⛔";$("hv").textContent=n?S.hist[hi]:"Aún no hay mensajes enviados.";$("hp").disabled=hi<=0;$("hn").disabled=hi>=n-1}
 $("hp").onclick=()=>{if(hi>0)hi--;hist()};$("hn").onclick=()=>{if(hi<S.hist.length-1)hi++;hist()};

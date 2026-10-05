@@ -118,7 +118,7 @@ function buildForm(){
  
  function buildDs(){
  $("ds").innerHTML=d.map((r,i)=>{const inL=!r.p||S.lists.productos.some(x=>norm(x)===norm(r.p));
-  return `<div class="dl" data-i="${i}"><div class="g2"><div><label>Producto ⛽</label><select data-f="p"><option value=""></option><option value="__new__"${inL?"":" selected"}>✏️ Escribir otro…</option>${S.lists.productos.map(x=>`<option${inL&&r.p&&norm(x)===norm(r.p)?" selected":""}>${esc(x)}</option>`).join("")}</select><input data-f="pn" autocomplete="off" placeholder="Escribe el producto nuevo" value="${inL?"":esc(r.p)}" style="margin-top:6px;${inL?"display:none":""}"></div><div><label>Cantidad 🔢</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div></div><div class="g3"><div><label>Fecha 📅</label><input data-f="f" type="date" value="${r.f}"></div><div><label>Hora ⏲️ (opcional)</label><input data-f="h" type="time" value="${r.h}"></div><div><label>Costo 🚛</label><input data-f="c" inputmode="decimal" autocomplete="off" placeholder="$ 0,00" value="${cshow(r.c)}"></div></div>${d.length>1?`<button class="x" data-del="${i}">✕</button>`:""}</div>`}).join("");
+  return `<div class="dl" data-i="${i}"><div class="g2"><div><label>Producto ⛽</label><select data-f="p"><option value=""></option><option value="__new__"${inL?"":" selected"}>✏️ Escribir otro…</option>${S.lists.productos.map(x=>`<option${inL&&r.p&&norm(x)===norm(r.p)?" selected":""}>${esc(x)}</option>`).join("")}</select><input data-f="pn" autocomplete="off" placeholder="Escribe el producto nuevo" value="${inL?"":esc(r.p)}" style="margin-top:6px;${inL?"display:none":""}"></div><div><label>Cantidad 🔢</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div></div><div class="g3"><div><label>Fecha Despacho 📅</label><input data-f="f" type="date" value="${r.f}"></div><div><label>Hora ⏲️ (opcional)</label><input data-f="h" type="time" value="${r.h}"></div><div><label>Costo 🚛</label><input data-f="c" inputmode="decimal" autocomplete="off" placeholder="$ 0,00" value="${cshow(r.c)}"></div></div>${d.length>1?`<button class="x" data-del="${i}">✕</button>`:""}</div>`}).join("");
  $("ds").querySelectorAll("[data-f]").forEach(e=>{
   const k=e.dataset.f,row=()=>d[+e.closest("[data-i]").dataset.i];
   if(k==="p"){const ni=e.closest("[data-i]").querySelector('[data-f="pn"]');
@@ -212,7 +212,7 @@ $("nw").onclick=()=>{sentAt="";$("wl").style.display="none";$("cf").style.displa
  document.querySelectorAll("#form input[type=checkbox],#form2 input[type=checkbox]").forEach(e=>{e.checked=false});
  upd();window.scrollTo(0,0)};
 
-$("add").onclick=()=>{const L=document.querySelectorAll("#ds .dl"),l=L[L.length-1],g=k=>l&&l.querySelector('[data-f="'+k+'"]')?l.querySelector('[data-f="'+k+'"]').value:"",a=d[d.length-1]||{};d.push({p:a.p||"",q:g("q").replace(/\D/g,"")||a.q||"",f:g("f")||a.f||"",h:"",c:""});buildDs()};
+$("add").onclick=()=>{const L=document.querySelectorAll("#ds .dl"),l=L[L.length-1],g=k=>l&&l.querySelector('[data-f="'+k+'"]')?l.querySelector('[data-f="'+k+'"]').value:"",a=d[d.length-1]||{};d.push({p:a.p||"",q:g("q").replace(/\D/g,"")||a.q||"",f:g("f")||a.f||"",h:"",c:""});buildDs();upd()};
 
 function hist(){const n=S.hist.length;$("hc").textContent=n?(hi+1)+" de "+n:"vacío ⛔";$("hv").textContent=n?S.hist[hi]:"Aún no hay mensajes enviados.";$("hp").disabled=hi<=0;$("hn").disabled=hi>=n-1}
 $("hp").onclick=()=>{if(hi>0)hi--;hist()};$("hn").onclick=()=>{if(hi<S.hist.length-1)hi++;hist()};

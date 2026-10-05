@@ -82,7 +82,7 @@ let tmr=null;const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch
 const $=id=>document.getElementById(id);
 let f={coord:"",cli:"",est:"",prod:"",term:"",op:"",ot:"",nota:"",urg:false,petro:"",fact:"",prio:"",guia:"",factor:false};
 let d=[{q:"",f:"",h:"",c:""}];let sentAt="";let hi=S.hist.length-1;
-const SPEC=[["coord","Coordinador Terminal 👩🏽‍💻","combo","personal"],["cli","Cliente 🏢","combo","clientes"],["est","Establecimiento 📌","dl","estab"],["prod","Producto ⛽","combo","productos"],["term","Terminal de Carga 🏭","combo","terminales"],["factor","Factor 🌡️","chk"],["op","Orden Producto 🛢️","txt"],["ot","Orden Transporte 🚛","txt"],["nota","Emite Nota Pedido 👩🏽‍💻","combo","personal"],["petro","Coordinador PETRO 👨🏽‍💼","combo","personal"],["fact","Facturación 🧾","combo","personal"],["guia","Guía Electrónica 📋","combo","personal"],["prio","Prioridad Factura ⚠️","sel","prio"],["urg","Urgente ‼️","chk"]];
+const SPEC=[["coord","Coordinador Terminal 👩🏽‍💻","combo","personal"],["cli","Cliente 🏢","combo","clientes"],["est","Establecimiento 📌","dl","estab"],["prod","Producto 🛢️","combo","productos"],["term","Terminal de Carga 🏭","combo","terminales"],["factor","Factor 🌡️","chk"],["op","Orden Producto 📄","txt"],["ot","Orden Transporte 📋","txt"],["nota","Emite Nota Pedido 👩🏽‍💻","combo","personal"],["petro","Coordinador PETRO 👨🏽‍💼","combo","personal"],["fact","Facturación 🧾","combo","personal"],["guia","Guía Electrónica 📋","combo","personal"],["prio","Prioridad Factura ⚠️","sel","prio"],["urg","Urgente ‼️","chk"]];
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
 function opts(k){const a=k==="prio"?Object.keys(PRIO):S.lists[k];return '<option value=""></option>'+a.map(x=>`<option>${esc(x)}</option>`).join("")}
 const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim().toLowerCase();
@@ -106,7 +106,7 @@ function buildForm(){
   e.oninput=e.onchange=()=>{f[k]=e.type==="checkbox"?e.checked:e.value;upd()}})}
  
  function buildDs(){
- $("ds").innerHTML=d.map((r,i)=>`<div class="row3" data-i="${i}"><div><label>Cantidad 🔢</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div><div><label>Fecha 📅</label><input data-f="f" type="date" value="${r.f}"></div><div><label>Hora ⏲️</label><input data-f="h" type="time" value="${r.h}"></div><div><label>Costo 🚛</label><input data-f="c" inputmode="decimal" autocomplete="off" placeholder="$ 0,00" value="${cshow(r.c)}"></div>${d.length>1?`<button class="x" data-del="${i}">✕</button>`:"<span></span>"}</div>`).join("");
+ $("ds").innerHTML=d.map((r,i)=>`<div class="row3" data-i="${i}"><div><label>Cantidad 🔢</label><input data-f="q" inputmode="numeric" value="${r.q?grp(String(r.q)):''}"></div><div><label>Fecha 📅</label><input data-f="f" type="date" value="${r.f}"></div><div><label>Hora ⏲️</label><input data-f="h" type="time" value="${r.h}"></div><div><label>Costo Transporte 🚛</label><input data-f="c" inputmode="decimal" autocomplete="off" placeholder="$ 0,00" value="${cshow(r.c)}"></div>${d.length>1?`<button class="x" data-del="${i}">✕</button>`:"<span></span>"}</div>`).join("");
  $("ds").querySelectorAll("input").forEach(e=>e.oninput=ev=>{const r=d[+e.closest("[data-i]").dataset.i],k=e.dataset.f;r[k]=k==="q"?maskQ(e):k==="c"?maskC(e,ev):e.value;upd()});
  $("ds").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{d.splice(+b.dataset.del,1);buildDs();upd()})}
 const grp=s=>s.replace(/\B(?=(\d{3})+(?!\d))/g,".");
